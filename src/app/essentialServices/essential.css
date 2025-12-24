@@ -1,0 +1,155 @@
+.ce-page-container {
+    padding: 2.5rem 3.5rem;
+    max-width: 1200px;
+}
+
+.ce-header h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin: 0;
+}
+
+.ce-header h1 span {
+    color: #d4a373; 
+    margin-left: 6px;
+}
+
+.ce-header p {
+    color: #777;
+    font-size: 1rem;
+    margin-top: 4px;
+}
+
+.ce-tab-bar {
+    display: flex;
+    gap: 0.75rem;
+    margin: 2.5rem 0;
+}
+
+.ce-tab-btn {
+    padding: 0.6rem 1.4rem;
+    border-radius: 12px;
+    border: 1px solid #f0f0f0;
+    background: #fff;
+    font-weight: 600;
+    color: #888;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.ce-tab-btn.is-active {
+    background: #111;
+    color: #fff;
+    border-color: #111;
+}
+
+.ce-bento-layout {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 1.25rem;
+    align-items: stretch;
+}
+
+.ce-card {
+    background: #fff;
+    border: 1px solid #f0f0f0;
+    border-radius: 24px;
+    padding: 1.8rem;
+    transition: transform 0.2s ease;
+}
+
+.ce-main-portal {
+    grid-row: span 2;
+    background: linear-gradient(135deg, #fffcf5 0%, #ffffff 100%);
+    border: 1px solid #faedcd;
+}
+
+.ce-badge {
+    background: #faedcd;
+    color: #d4a373;
+    padding: 4px 12px;
+    border-radius: 50px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.ce-card h3 { font-size: 1.8rem; margin: 1rem 0; font-weight: 800; }
+.ce-card h4 { font-size: 1rem; margin-bottom: 1rem; font-weight: 700; color: #333; }
+.ce-card p { color: #666; font-size: 0.95rem; line-height: 1.5; }
+
+.ce-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin: 1.5rem 0 2rem;
+}
+
+.ce-search-bar {
+    padding: 1rem;
+    border-radius: 14px;
+    border: 1px solid #e0e0e0;
+    font-size: 0.9rem;
+    outline: none;
+}
+
+.ce-submit-btn {
+    background: #111;
+    color: #fff;
+    border: none;
+    padding: 1rem;
+    border-radius: 14px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.ce-status-card {
+    grid-column: span 1;
+    background: #fff;
+}
+
+.ce-stat-box {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.ce-stat {
+    display: flex;
+    flex-direction: column;
+}
+
+.ce-stat strong { font-size: 1.8rem; font-weight: 800; }
+.ce-stat span { font-size: 0.75rem; color: #999; text-transform: uppercase; letter-spacing: 0.5px; }
+.ce-online { color: #2ecc71; }
+
+.ce-board {
+    border-top: 1px solid #f0f0f0;
+    padding-top: 1.5rem;
+}
+
+.ce-feed {
+    list-style: none;
+    padding: 0;
+    font-size: 0.85rem;
+    color: #555;
+}
+
+.ce-feed li {
+    padding: 8px 0;
+    border-bottom: 1px dotted #eee;
+}
+
+.ce-tip-card { background: #fff; }
+.ce-help-card { background: #f9f9f9; border: none; }
+.ce-gold-text { color: #d4a373 !important; }
+
+.ce-footer {
+    margin-top: 3rem;
+    text-align: center;
+    color: #bbb;
+    font-size: 0.8rem;
+    font-weight: 600;
+}

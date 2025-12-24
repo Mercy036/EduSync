@@ -1,75 +1,74 @@
-import mongoose, { Schema, Document } from 'mongoose'
+import mongoose, { Schema, Document } from "mongoose"
 
-export interface Message extends Document {
-    content: string;
-    createdAt: Date
+/* ---------- Sub-schema: YouTube Links ---------- */
+export interface YouTubeLink {
+  title: string
+  url: string
+  addedAt: Date
 }
 
-const MessageSchema: Schema<Message> = new Schema({
-    content: {
-        type: String,
-        required: true
-    },
-    createdAt: {
-        type: Date,
-        required: true,
-        default: Date.now
-    }
+const YouTubeLinkSchema = new Schema<YouTubeLink>({
+  title: {
+    type: String,
+    required: true,
+  },
+  url: {
+    type: String,
+    required: true,
+  },
+  addedAt: {
+    type: Date,
+    default: Date.now,
+  },
 })
 
-export interface Users extends Document {
-    username: string,
-    email_id: string,
-    password: string,
-    verifyCode: string,
-    verifyCodeExpiry: Date,
-    isVerified: boolean,
-    isAcceptingMessage: Boolean,
-    messages: Message[]
+/* ---------- Main User Interface ---------- */
+export interface User extends Document {
+  uid: string            // Firebase UID (primary identity)
+  name?: string
+  email?: string
+  avatar?: string
+  youtubeLinks: YouTubeLink[]
+  createdAt: Date
+  updatedAt: Date
 }
-export interface Users extends Document {
-    username: string,
-    email_id: string,
-    password: string,
-    verifyCode: string,
-    verifyCodeExpiry: Date,
-    isVerified: boolean,
-}
-const UserSchema: Schema<Users> = new Schema({
-    username: {
-        type: String,
-        required: [true, "Username is required"],
-        trim: true,
-        unique: true
+
+/* ---------- User Schema ---------- */
+const UserSchema = new Schema<User>(
+  {
+    uid: {
+      type: String,
+      required: true,
+      unique: true,
+      index: true,
     },
-    email_id: {
-        required: [true, "Username is required"],
-        type: String,
-        unique: true,
-        match: [/^[^\s@]+@[^\s@]+\.[^\s@]+$/, 'Please use a valid email address']
+
+    name: {
+      type: String,
+      trim: true,
     },
-    password: {
-        type: String,
-        required: true
+
+    email: {
+      type: String,
+      trim: true,
+      lowercase: true,
     },
-    verifyCode: {
-        type: String,
-        required: [true, 'Verification code is required']
+
+    avatar: {
+      type: String,
     },
-    verifyCodeExpiry: {
-        type: Date,
-        required: [true, 'Verification code expiry is required']
+
+    youtubeLinks: {
+      type: [YouTubeLinkSchema],
+      default: [],
     },
-    isVerified:{
-        type: Boolean,
-        default: false
-    },
-    isAcceptingMessage:{
-        type: Boolean,
-        default: false
-    },
-    messages:[MessageSchema]
-})
-export const UserModel = 
-(mongoose.models.Users as mongoose.Model<Users>) || 
-mongoose.model<Users>('Users', UserSchema);
+  },
+  {
+    timestamps: true, // adds createdAt & updatedAt
+  }
+)
+
+/* ---------- Model Export ---------- */
+export const UserModel =
+  mongoose.models.User ||
+  mongoose.model<User>("User", UserSchema)

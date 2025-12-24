@@ -14,6 +14,7 @@ import {
     Briefcase,
     HelpCircle,
     Menu,
+    User2Icon,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -26,8 +27,9 @@ export default function SideBar() {
         { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
         { label: "Generate Timetable", href: "/gentt", icon: FilePlus2 },
         { label: "Notes.Co", href: "/notes", icon: NotebookText },
+        { label: "My Shelf", href: "/shelf", icon: User2Icon },
         { label: "JCafe", href: "/jcafe", icon: Coffee },
-        { label: "Essential Services", href: "/essentialServices", icon: Briefcase },
+        { label: "Campus Essentials", href: "/essentialServices", icon: Briefcase },
         { label: "Announcements", href: "/announcements", icon: Bell },
         { label: "Help", href: "/help", icon: HelpCircle },
     ];

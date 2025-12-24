@@ -1,0 +1,38 @@
+:root {
+  --bg-main: #faf9f7;
+  --bg-surface: #ffffff;
+  --bg-muted: #f4f2ed;
+
+  --text-primary: #2b2b2b;
+  --text-secondary: #6b6b6b;
+
+  --accent: #d9a441;
+  --accent-soft: #f3e8c9;
+
+  --border: rgba(0, 0, 0, 0.08);
+
+  --container-max: 1200px;
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  margin: 0;
+}
+.dashboard-layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: var(--bg-main);
+}
+
+.dashboard-main {
+  flex: 1;
+  margin-left: 260px;
+  padding: 2.5rem 3rem;
+  box-sizing: border-box;
+}
+.sidebar.collapsed + .dashboard-main {
+  margin-left: 76px;
+}
+

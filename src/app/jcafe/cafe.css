@@ -1,0 +1,202 @@
+.jcafe-container {
+    padding: 3rem 4rem;
+    max-width: 1400px;
+}
+
+.jcafe-header h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    margin: 0;
+}
+
+.jcafe-header h1 span {
+    color: #d4a373; /* Gold accent from Shelf */
+}
+
+.jcafe-header p {
+    color: #666;
+    margin-top: 0.5rem;
+}
+
+.jcafe-content {
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    gap: 2rem;
+    margin-top: 3.5rem;
+    align-items: start; /* CRITICAL: Stops cards from stretching */
+}
+
+.jcafe-left-col {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* Base Card Style */
+.jcafe-card {
+    background: #fff;
+    border: 1px solid #f0f0f0;
+    border-radius: 20px;
+    padding: 1.5rem;
+    transition: transform 0.2s ease;
+}
+
+.jcafe-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+}
+
+/* Featured Combo Card */
+.jcafe-featured {
+    background: linear-gradient(145deg, #fffcf5 0%, #ffffff 100%);
+    border: 1px solid #faedcd;
+    padding: 2.5rem;
+}
+
+.jcafe-badge {
+    background: #faedcd;
+    color: #d4a373;
+    padding: 4px 12px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.jcafe-primary-btn {
+    margin-top: 1.5rem;
+    padding: 12px 24px;
+    background: #1a1a1a;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* Bento Grid for Rewards/Reorder */
+.jcafe-bento-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+.jcafe-label {
+    font-size: 0.85rem;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0 0 8px 0;
+}
+
+.jcafe-value {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.jcafe-hint {
+    font-size: 0.8rem;
+    color: #666;
+    display: block;
+    margin-top: 4px;
+}
+
+/* Menu Card Style */
+.jcafe-menu-card {
+    background: #fff;
+    border: 1px solid #f0f0f0;
+    border-radius: 24px;
+    padding: 2rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+}
+
+.jcafe-menu-top {
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #f5f5f5;
+    padding-bottom: 1rem;
+}
+
+.jcafe-menu-top h3 { margin: 0; font-size: 1.4rem; }
+.jcafe-menu-top p { margin: 4px 0 0 0; color: #999; font-size: 0.9rem; }
+
+.jcafe-list {
+    list-style: none;
+    padding: 0;
+}
+
+.jcafe-list-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-radius: 15px;
+    cursor: pointer;
+    margin-bottom: 0.5rem;
+}
+
+.jcafe-list-item:hover {
+    background: #fafafa;
+}
+
+.jcafe-item-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.jcafe-item-name {
+    font-weight: 600;
+    color: #333;
+}
+
+.jcafe-item-tag {
+    font-size: 0.7rem;
+    color: #999;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.jcafe-item-price {
+    font-weight: 700;
+    font-size: 1rem;
+    background: #f8f8f8;
+    padding: 6px 12px;
+    border-radius: 10px;
+}
+
+/* Sidebar Styles */
+.jcafe-sidebar {
+    position: fixed;
+    right: -450px;
+    top: 0;
+    width: 400px;
+    height: 100vh;
+    background: white;
+    box-shadow: -20px 0 50px rgba(0,0,0,0.05);
+    z-index: 1000;
+    transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.jcafe-sidebar.is-open { right: 0; }
+
+.jcafe-total-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+}
+
+.jcafe-checkout-btn {
+    width: 100%;
+    padding: 1.2rem;
+    background: #d4a373;
+    color: white;
+    border: none;
+    border-radius: 16px;
+    font-weight: 700;
+    cursor: pointer;
+}

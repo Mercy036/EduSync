@@ -1,0 +1,35 @@
+.upload-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+
+  padding: 0.5rem 0.9rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+
+  border-radius: 0.375rem;
+  border: 1px solid hsl(214.3 31.8% 91.4%);
+  background-color: hsl(0 0% 100%);
+  color: hsl(222.2 47.4% 11.2%);
+
+  cursor: pointer;
+  transition: 
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.upload-btn:hover {
+  background-color: hsl(210 40% 96.1%);
+  border-color: hsl(214.3 31.8% 85%);
+}
+
+.upload-btn:active {
+  background-color: hsl(210 40% 93%);
+}
+
+.upload-btn:focus-within {
+  outline: none;
+  box-shadow: 0 0 0 2px hsl(221.2 83.2% 53% / 0.4);
+}

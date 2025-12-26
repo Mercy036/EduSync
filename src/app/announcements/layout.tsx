@@ -1,4 +1,4 @@
-import "./dashboardLayout.css";
+import "./announcementsLayout.css";
 import SideBar from "@/src/components/SideBar";
 
 export default function DashboardLayout({
@@ -7,9 +7,9 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="dashboard-layout">
+    <div className="announcements-layout">
       <SideBar />
-      <main className="dashboard-main">
+      <main className="announcements-main">
         {children}
       </main>
     </div>

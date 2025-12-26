@@ -28,7 +28,7 @@ body {
 
 .dashboard-main {
   flex: 1;
-  margin-left: -150px;
+  margin-left:  -150px;
   padding: 2.5rem 1rem;
   box-sizing: border-box;
 }

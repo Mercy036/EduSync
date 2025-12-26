@@ -34,19 +34,19 @@ body::before {
   z-index: 0;
 }
 
-.dashboard-layout {
+.announcements-layout {
   display: flex;
   min-height: 100vh;
   background-color: var(--bg-main);
 }
 
-.dashboard-main {
+.announcements-main {
   flex: 1;
-  margin-left: 260px;
+  margin-left: 0px;
   padding: 2.5rem 3rem;
   box-sizing: border-box;
 }
-.sidebar.collapsed + .dashboard-main {
+.sidebar.collapsed + .announcements-main {
   margin-left: 76px;
 }
 

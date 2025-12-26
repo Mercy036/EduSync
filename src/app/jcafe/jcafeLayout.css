@@ -34,19 +34,19 @@ body::before {
   z-index: 0;
 }
 
-.dashboard-layout {
+.jafe-layout {
   display: flex;
-  min-height: 100vh;
+  min-height: 0vh;
   background-color: var(--bg-main);
 }
 
-.dashboard-main {
+.jcafe-main {
   flex: 1;
-  margin-left: 260px;
+  margin-left: 200px;
   padding: 2.5rem 3rem;
   box-sizing: border-box;
 }
-.sidebar.collapsed + .dashboard-main {
-  margin-left: 76px;
+.sidebar.collapsed + .jcafe-main {
+  margin-left: 0;
 }
 

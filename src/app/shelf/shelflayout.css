@@ -20,19 +20,19 @@ body {
   color: var(--text-primary);
   margin: 0;
 }
-.dashboard-layout {
+.shelf-layout {
   display: flex;
   min-height: 100vh;
   background-color: var(--bg-main);
 }
 
-.dashboard-main {
+.shelf-main {
   flex: 1;
-  margin-left: 260px;
+  margin-left: 50px;
   padding: 2.5rem 3rem;
   box-sizing: border-box;
 }
-.sidebar.collapsed + .dashboard-main {
+.sidebar.collapsed + .shelf-main {
   margin-left: 76px;
 }
 

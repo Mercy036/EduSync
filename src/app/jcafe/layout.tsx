@@ -1,4 +1,4 @@
-import "./dashboardLayout.css";
+import "./jcafeLayout.css";
 import SideBar from "@/src/components/SideBar";
 
 export default function DashboardLayout({
@@ -7,9 +7,9 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="dashboard-layout">
+    <div className="jcafe-layout">
       <SideBar />
-      <main className="dashboard-main">
+      <main className="jcafe-main">
         {children}
       </main>
     </div>

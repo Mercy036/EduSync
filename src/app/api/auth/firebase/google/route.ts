@@ -43,7 +43,7 @@ export async function POST(req: Request) {
     return NextResponse.json({
       success: true,
       user,
-      redirectTo: hasPhone ? "/dashboard" : "/complete-profile",
+      redirectTo: hasPhone ? "/dashboard" : "/login",
     })
   } catch (error) {
     console.error("Firebase auth error:", error)

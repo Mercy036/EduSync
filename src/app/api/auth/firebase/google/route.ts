@@ -38,10 +38,12 @@ export async function POST(req: Request) {
       }
     )
 
+    const hasPhone = Boolean(user.phoneNo)
+
     return NextResponse.json({
       success: true,
       user,
-      needsPhone: !user.phoneNo,
+      redirectTo: hasPhone ? "/dashboard" : "/login",
     })
   } catch (error) {
     console.error("Firebase auth error:", error)

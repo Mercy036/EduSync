@@ -1,0 +1,471 @@
+.carbuddy-dashboard-root {
+  padding: 1.5rem 2rem 1.5rem 0.5rem;
+  max-width: 1400px;
+  margin: 0;
+  min-height: 100vh;
+}
+
+.carbuddy-main-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 2rem;
+}
+
+.carbuddy-welcome-container h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+.carbuddy-welcome-container h1 span {
+  color: #d4a23a;
+}
+
+.carbuddy-welcome-container p {
+  color: #666;
+  margin-top: 0.5rem;
+}
+
+.carbuddy-avatar-wrapper {
+  width: 36px;
+  height: 36px;
+  border-radius: 9999px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f0f0f0;
+}
+
+.carbuddy-bento-layout {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: auto auto;
+  gap: 1.5rem;
+}
+
+.carbuddy-tile {
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 1.5rem;
+  color: #1a1a1a;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: 1px solid rgba(0,0,0,0.03);
+  position: relative;
+  overflow: hidden;
+}
+
+.carbuddy-tile:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.05);
+}
+
+.carbuddy-tile-tall {
+  grid-row: span 2;
+}
+
+.carbuddy-tile-wide {
+  grid-column: span 2;
+}
+
+.carbuddy-hero-tile {
+  background: #efece5;
+  border: none;
+  border-radius: 24px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.04);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2rem !important;
+  overflow: visible;
+  min-height: 380px;
+}
+
+.carbuddy-hero-inner {
+  width: 100%;
+}
+
+.carbuddy-location-card {
+  background: white;
+  border-radius: 16px;
+  padding: 16px 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+  margin-bottom: 20px;
+}
+
+.carbuddy-loc-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 6px 0;
+}
+
+.carbuddy-loc-row label {
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: #a0a0a0;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.carbuddy-input-flex {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.carbuddy-loc-input {
+  border: none;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  width: 100%;
+  outline: none;
+}
+
+.carbuddy-icon-orange { color: #f97316; }
+.carbuddy-icon-blue { color: #3b82f6; }
+
+.carbuddy-divider {
+  height: 1px;
+  background: #f0f0f0;
+  width: 100%;
+  margin: 6px 0;
+}
+
+.carbuddy-hero-content p {
+  color: #666;
+  margin-bottom: 0;
+  font-size: 0.95rem;
+}
+
+.carbuddy-action-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 16px;
+  --action-width: 150px;
+}
+
+.carbuddy-black-btn {
+  background: #1a1a1a;
+  color: white;
+  padding: 0 24px;
+  height: 48px;
+  width: var(--action-width);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 12px;
+  border: none;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.carbuddy-price-pill {
+  display: flex;
+  align-items: center;
+  background: white;
+  padding: 0 12px;
+  border-radius: 12px;
+  height: 48px;
+  width: var(--action-width);
+  box-sizing: border-box;
+}
+
+.carbuddy-currency {
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-right: 2px;
+}
+
+.carbuddy-price-pill input {
+  border: none;
+  background: transparent;
+  width: 48px;
+  text-align: center;
+  font-weight: 800;
+  font-size: 1.05rem;
+  outline: none;
+  color: #1a1a1a;
+}
+
+.carbuddy-tag-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 800;
+  background: rgba(255,255,255,0.6);
+  padding: 4px 10px;
+  border-radius: 6px;
+  margin-bottom: 12px;
+  display: inline-block;
+  color: #8b6e4e;
+}
+
+.carbuddy-badge {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 0.5rem;
+}
+
+.carbuddy-list-header {
+  margin-bottom: 1rem;
+}
+
+.carbuddy-list-header h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.carbuddy-list-header p {
+  font-size: 0.85rem;
+  color: #888;
+}
+
+.carbuddy-scroll-area {
+  overflow-y: auto;
+  flex: 1;
+  padding-right: 4px;
+}
+
+.carbuddy-ride-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0;
+  border-bottom: 1px solid #f5f5f5;
+}
+
+.carbuddy-ride-info h4 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.carbuddy-ride-meta {
+  font-size: 0.75rem;
+  color: #888;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.carbuddy-ride-rating {
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.carbuddy-ride-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.carbuddy-name-trigger {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  cursor: pointer;
+  text-align: left;
+}
+
+.carbuddy-name-trigger:hover {
+  text-decoration: underline;
+  color: #d4a23a;
+}
+
+.carbuddy-price-badge {
+  background: #f5f5f5;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.carbuddy-stat-tile {
+  justify-content: center;
+}
+
+.carbuddy-stat-value {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #1a1a1a;
+  margin: 10px 0 4px 0;
+}
+
+.carbuddy-stat-label {
+  color: #888;
+  font-size: 0.85rem;
+}
+
+.carbuddy-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.3);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.carbuddy-modal-box {
+  background: white;
+  padding: 0;
+  width: 100%;
+  max-width: 400px;
+  border-radius: 24px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.carbuddy-modal-header {
+  padding: 20px;
+  background: #fcfcfc;
+  border-bottom: 1px solid #f0f0f0;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.carbuddy-chat-user-info {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.carbuddy-chat-user-info h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0;
+  color: #1a1a1a;
+}
+
+.carbuddy-chat-status {
+  font-size: 0.75rem;
+  color: #22c55e;
+  font-weight: 500;
+}
+
+.carbuddy-avatar-small {
+  background: #f0f0f0;
+  border-radius: 50%;
+  padding: 2px;
+}
+
+.carbuddy-modal-close {
+  background: #f5f5f5;
+  border: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #666;
+}
+
+.carbuddy-chat-body {
+  height: 300px;
+  background: #ffffff;
+  padding: 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.carbuddy-msg-bubble {
+  padding: 10px 14px;
+  border-radius: 14px;
+  font-size: 0.9rem;
+  max-width: 80%;
+  line-height: 1.4;
+}
+
+.carbuddy-msg-bubble.received {
+  background: #f5f5f5;
+  color: #1a1a1a;
+  border-bottom-left-radius: 4px;
+  align-self: flex-start;
+}
+
+.carbuddy-date-divider {
+  text-align: center;
+  font-size: 0.7rem;
+  color: #ccc;
+  margin-top: auto;
+  font-weight: 600;
+}
+
+.carbuddy-chat-input-area {
+  padding: 16px;
+  border-top: 1px solid #f0f0f0;
+  background: white;
+  display: flex;
+  gap: 10px;
+}
+
+.carbuddy-chat-input-area input {
+  flex: 1;
+  padding: 12px 16px;
+  border-radius: 100px;
+  border: 1px solid #eee;
+  outline: none;
+  font-size: 0.9rem;
+  background: #fcfcfc;
+}
+
+.carbuddy-send-btn {
+  background: #1a1a1a;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+
+.carbuddy-send-btn:active {
+  transform: scale(0.95);
+}
+
+@media (max-width: 900px) {
+  .carbuddy-bento-layout {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+  
+  .carbuddy-tile-wide, 
+  .carbuddy-tile-tall {
+    grid-column: span 1;
+    grid-row: auto;
+  }
+  
+  .carbuddy-tile-tall {
+    min-height: 400px;
+  }
+}

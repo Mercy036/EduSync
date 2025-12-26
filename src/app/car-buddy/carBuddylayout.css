@@ -1,0 +1,52 @@
+:root {
+  --bg-main: #ffffff;
+  --bg-surface: #ffffff;
+  --bg-muted: #f7f7f7;
+
+  --text-primary: #1e1e1e;
+  --text-secondary: #666666;
+
+  --accent: #d4a23a;
+  --accent-soft: #f6edd1;
+
+  --border: rgba(0, 0, 0, 0.14);
+
+  --container-max: 1200px;
+}
+
+
+
+html,
+body {
+  position: relative;
+  min-height: 100%;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url("/noise.webp");
+  background-repeat: none;
+  background-size: 100%;
+  opacity: 0.05;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.carBuddy-layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: var(--bg-main);
+}
+
+.carBuddy-main {
+  flex: 1;
+  margin-left: 120px;
+  padding: 2.5rem 3rem;
+  box-sizing: border-box;
+}
+.sidebar.collapsed + .carBuddy-main {
+  margin-left: 76px;
+}
+

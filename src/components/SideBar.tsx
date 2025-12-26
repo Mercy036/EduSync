@@ -39,12 +39,13 @@ export default function SideBar() {
         localStorage.setItem("sidebar-collapsed", JSON.stringify(newState));
     };
 
-    const navItems = [
+const navItems = [
         { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
         { label: "Timetable", href: "/timetable", icon: FilePlus2 },
         { label: "Notes.Co", href: "/notes", icon: NotebookText },
         { label: "My Shelf", href: "/shelf", icon: User2Icon },
         { label: "JCafe", href: "/jcafe", icon: Coffee },
+        { label: "CarBuddy", href: "/car-buddy", icon: Car },
         { label: "Campus Essentials", href: "/essentialServices", icon: Briefcase },
         { label: "Announcements", href: "/announcements", icon: Bell },
         { label: "Help", href: "/help", icon: HelpCircle },

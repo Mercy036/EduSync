@@ -6,6 +6,7 @@ import { onAuthStateChanged } from "firebase/auth"
 import { Skeleton } from "@/src/components/ui/skeleton"
 import { Trash, PlayCircle } from "lucide-react"
 import "./VideoCard.css"
+import { toast } from "react-toastify"
 
 export default function VideoCardList({ refreshKey }: { refreshKey?: number }) {
   const [videos, setVideos] = useState<any[]>([])
@@ -41,7 +42,10 @@ export default function VideoCardList({ refreshKey }: { refreshKey?: number }) {
       headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
       body: JSON.stringify({ url }),
     })
-    if (res.ok) fetchVideos(user)
+    if (res.ok) {
+      fetchVideos(user)
+      toast.info("Video deleted")
+    }
   }
 
   if (loading) {

@@ -1,15 +1,16 @@
 "use client";
 import { useState } from "react";
 import "./essential.css";
-import AuthGuard from "@/src/components/AuthGuard";
+// import AuthGuard from "@/src/components/AuthGuard"; 
 
-type TabType = "Library" | "Buy & Sell" | "Print Out" | "Car Buddy";
+// REMOVED "Car Buddy" from the type definition
+type TabType = "Library" | "Buy & Sell" | "Print Out";
 
 export default function CampusEssentials() {
     const [activeTab, setActiveTab] = useState<TabType>("Library");
     const [searchQuery, setSearchQuery] = useState("");
 
-    const tabContent = {
+    const tabContent: Record<TabType, { title: string; desc: string; action: string; placeholder: string }> = {
         "Library": { 
             title: "Book Finder", 
             desc: "Don't walk all the way to the basement. Check if the book is actually on the shelf first.", 
@@ -27,29 +28,23 @@ export default function CampusEssentials() {
             desc: "Upload lab reports and pick them up at any kiosk. No more fighting for the USB port.", 
             action: "Upload PDF",
             placeholder: "Search recent prints..." 
-        },
-        "Car Buddy": { 
-            title: "Ride Share", 
-            desc: "Split the petrol or just get a lift. Find batchmates heading to the metro or home.", 
-            action: "Offer Ride",
-            placeholder: "Search destination..." 
         }
     };
 
     return (
-        <AuthGuard>
-            <section className="ce-page-container">
+        // <AuthGuard>
+        <section className="ce-page-container">
             <header className="ce-header">
                 <h1>Campus<span>Essentials</span></h1>
                 <p>Built by students, for the students who actually show up.</p>
             </header>
 
             <nav className="ce-tab-bar">
-                {Object.keys(tabContent).map((tab) => (
+                {(Object.keys(tabContent) as TabType[]).map((tab) => (
                     <button
                         key={tab}
                         className={`ce-tab-btn ${activeTab === tab ? "is-active" : ""}`}
-                        onClick={() => setActiveTab(tab as TabType)}
+                        onClick={() => setActiveTab(tab)}
                     >
                         {tab}
                     </button>
@@ -57,6 +52,7 @@ export default function CampusEssentials() {
             </nav>
 
             <div className="ce-bento-layout">
+                {/* Main Interaction Card */}
                 <div className="ce-card ce-main-portal">
                     <span className="ce-badge">Live Portal</span>
                     <h3>{tabContent[activeTab].title}</h3>
@@ -78,9 +74,12 @@ export default function CampusEssentials() {
                         <ul className="ce-feed">
                             <li>"Found a lost ID card in Library Wing A" — Rahul, 2nd Year</li>
                             <li>"Selling Engineering Physics Vol 1" — Sneha, 4th Year</li>
+                            <li>"Who has the digital copy of the Microprocessors manual?" — Arul</li>
                         </ul>
                     </div>
                 </div>
+
+                {/* System Stats Card */}
                 <div className="ce-card ce-status-card">
                     <h4>System Health</h4>
                     <div className="ce-stat-box">
@@ -99,15 +98,17 @@ export default function CampusEssentials() {
                     </div>
                 </div>
 
+                {/* Tips Card */}
                 <div className="ce-card ce-tip-card">
                     <h4 className="ce-gold-text">Pro-Tip</h4>
                     <p>
                         {activeTab === "Library" && "The 3rd-floor wing has the fastest Wi-Fi and quietest desks."}
                         {activeTab === "Buy & Sell" && "Sell your notes now. Prices peak right before mid-sems."}
                         {activeTab === "Print Out" && "Use the Block B printer; it rarely jams."}
-                        {activeTab === "Car Buddy" && "Drivers get the shade parking if they arrive by 8 AM."}
                     </p>
                 </div>
+
+                {/* Help Card */}
                 <div className="ce-card ce-help-card">
                     <h4>Need Help?</h4>
                     <p>Ping the student coordinator for urgent issues.</p>
@@ -118,6 +119,6 @@ export default function CampusEssentials() {
                 <p>EduSync // For the hustle.</p>
             </footer>
         </section>
-        </AuthGuard>
+        // </AuthGuard>
     );
 }

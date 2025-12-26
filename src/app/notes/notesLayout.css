@@ -34,19 +34,23 @@ body::before {
   z-index: 0;
 }
 
-.dashboard-layout {
+.notes-layout {
   display: flex;
   min-height: 100vh;
   background-color: var(--bg-main);
+  align-items: flex-start;
 }
 
-.dashboard-main {
+.notes-main {
   flex: 1;
-  margin-left: 125px;
+  /* If the sidebar is part of the flex container, 
+     you might NOT need margin-left. 
+     Try removing it if there is a huge gap. */
+  /* margin-left: 200px; */ 
   padding: 2.5rem 3rem;
   box-sizing: border-box;
 }
-.sidebar.collapsed + .dashboard-main {
+.sidebar.collapsed + .notes-main {
   margin-left: 76px;
 }
 

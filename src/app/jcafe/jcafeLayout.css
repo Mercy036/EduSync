@@ -34,15 +34,20 @@ body::before {
   z-index: 0;
 }
 
-.jafe-layout {
+.jcafe-layout {
   display: flex;
-  min-height: 0vh;
+  min-height: 100vh; /* Changed from 0vh to 100vh */
   background-color: var(--bg-main);
+  /* Ensure alignment is at the top */
+  align-items: flex-start; 
 }
 
 .jcafe-main {
   flex: 1;
-  margin-left: 200px;
+  /* If the sidebar is part of the flex container, 
+     you might NOT need margin-left. 
+     Try removing it if there is a huge gap. */
+  /* margin-left: 200px; */ 
   padding: 2.5rem 3rem;
   box-sizing: border-box;
 }

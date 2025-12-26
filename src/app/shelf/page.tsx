@@ -3,7 +3,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/src/components/ui/tabs"
 import { Table, TableBody, TableCaption, TableCell, TableRow } from "@/src/components/ui/table"
 import { Skeleton } from "@/src/components/ui/skeleton"
-import { Folder, Trash, Download, FileText, Video as VideoIcon } from "lucide-react"
+import { Trash, Download, FileText } from "lucide-react"
 import { useState, useEffect } from "react"
 import UploadButton from "@/src/components/UploadButtonCloudinary"
 import "./MyShelf.css"
@@ -13,6 +13,10 @@ import AuthGuard from "@/src/components/AuthGuard"
 import VideoCardList from "@/src/components/VideoCardList"
 import AddVideoUrl from "@/src/components/AddVideoUrl"
 import UploadNotesButton from "@/src/components/UploadNotesButtonCloudinary"
+
+// 1. Import the custom toast component and the toast function
+import { toast } from 'react-toastify';
+import CustomToast from "@/src/components/customToast"; 
 
 export default function MyShelf() {
   const [pdfs, setPdfs] = useState<any[]>([])
@@ -66,6 +70,25 @@ export default function MyShelf() {
     return () => unsubscribe()
   }, [refreshKey])
 
+  // --- Success Handlers (Simple & Clean) ---
+
+  const handlePdfUploadSuccess = () => {
+    setRefreshKey(p => p + 1);
+    toast.success("PDF Resource uploaded successfully");
+  }
+
+  const handleVideoAddSuccess = () => {
+    setRefreshKey(p => p + 1);
+    toast.success("YouTube video added to gallery");
+  }
+
+  const handleNoteUploadSuccess = () => {
+    setRefreshKey(p => p + 1);
+    toast.success("Personal Note saved");
+  }
+
+  // ------------------------------------
+
   const handleDelete = async (id: string) => {
     if (!confirm("Delete this file?")) return
     const user = auth.currentUser
@@ -78,7 +101,10 @@ export default function MyShelf() {
       body: JSON.stringify({ id, type: "pdf" }),
     })
 
-    if (res.ok) setRefreshKey((p) => p + 1)
+    if (res.ok) {
+      setRefreshKey((p) => p + 1)
+      toast.info("File deleted");
+    }
   }
 
   const handleDeleteNote = async (id: string) => {
@@ -98,12 +124,16 @@ export default function MyShelf() {
 
     if (res.ok) {
       setRefreshKey((p) => p + 1)
+      toast.info("Note deleted");
     }
   }
 
   return (
     <AuthGuard>
       <section className="dashboard">
+        {/* 2. Use the CustomToast component here */}
+        <CustomToast />
+        
         <div className="dashboard-header">
           <h1>My <span>Shelf</span></h1>
           <p>Organize your learning materials in one place.</p>
@@ -119,7 +149,7 @@ export default function MyShelf() {
           <TabsContent value="resources">
             <div className="header">
               <h2>Study Materials</h2>
-              <UploadButton type="pdf" onUploaded={() => setRefreshKey(p => p + 1)} />
+              <UploadButton type="pdf" onUploaded={handlePdfUploadSuccess} />
             </div>
 
             <div className="folder">
@@ -164,7 +194,7 @@ export default function MyShelf() {
           <TabsContent value="videos">
             <div className="header">
               <h2>Video Library</h2>
-              <AddVideoUrl onAdded={() => setRefreshKey(p => p + 1)} />
+              <AddVideoUrl onAdded={handleVideoAddSuccess} />
             </div>
             <VideoCardList refreshKey={refreshKey} />
           </TabsContent>
@@ -172,7 +202,7 @@ export default function MyShelf() {
           <TabsContent value="notes">
             <div className="header">
               <h2>Study Materials</h2>
-              <UploadNotesButton type="notes" onUploaded={() => setRefreshKey(p => p + 1)} />
+              <UploadNotesButton type="notes" onUploaded={handleNoteUploadSuccess} />
             </div>
 
             <div className="folder">

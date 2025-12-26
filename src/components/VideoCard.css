@@ -1,46 +1,4 @@
-.yt-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 16px;
-}
-
-.yt-card {
-  position: relative;
-  cursor: pointer;
-}
-
-.yt-card img {
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
-  border-radius: 12px;
-}
-
-.yt-meta {
-  margin-top: 8px;
-}
-
-.yt-meta h4 {
-  font-size: 14px;
-  font-weight: 600;
-}
-
-.yt-meta p {
-  font-size: 12px;
-  color: #6b7280;
-}
-
-.yt-delete {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  background: rgba(0,0,0,0.6);
-  color: white;
-  border-radius: 6px;
-  padding: 4px;
-  cursor: pointer;
-}
-/* Add Video Input Wrapper */
+/* Add Video Input Wrapper (Used by AddVideoUrl component) */
 .video-input-wrapper {
   display: flex;
   gap: 10px;
@@ -92,6 +50,7 @@
 
 .yt-card {
   transition: transform 0.2s ease;
+  position: relative;
 }
 
 .yt-card:hover { transform: translateY(-4px); }
@@ -136,6 +95,10 @@
   cursor: pointer;
   border: none;
   z-index: 10;
+}
+
+.yt-meta {
+  margin-top: 8px;
 }
 
 .yt-meta h4 {

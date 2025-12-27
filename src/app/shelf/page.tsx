@@ -130,55 +130,55 @@ export default function MyShelf() {
 
   return (
     <AuthGuard>
-      <section className="dashboard">
+      <section className="shelf-dashboard">
         {/* 2. Use the CustomToast component here */}
         <CustomToast />
         
-        <div className="dashboard-header">
+        <div className="shelf-dashboard-header">
           <h1>My <span>Shelf</span></h1>
           <p>Organize your learning materials in one place.</p>
         </div>
 
         <Tabs defaultValue="resources" className="myshelf">
-          <TabsList className="tabs">
+          <TabsList className="shelf-tabs">
             <TabsTrigger value="resources">PDF Resources</TabsTrigger>
             <TabsTrigger value="videos">YouTube Gallery</TabsTrigger>
             <TabsTrigger value="notes">Personal Notes</TabsTrigger>
           </TabsList>
 
           <TabsContent value="resources">
-            <div className="header">
+            <div className="shelf-header">
               <h2>Study Materials</h2>
               <UploadButton type="pdf" onUploaded={handlePdfUploadSuccess} />
             </div>
 
-            <div className="folder">
+            <div className="shelf-folder">
               {loading ? (
                 <div className="space-y-3">
                   {[1, 2, 3].map((i) => <Skeleton key={i} className="h-12 w-full rounded-lg" />)}
                 </div>
               ) : pdfs.length === 0 ? (
-                <div className="empty-box">No PDFs uploaded yet.</div>
+                <div className="shelf-empty-box">No PDFs uploaded yet.</div>
               ) : (
                 <Table>
                   <TableBody>
                     {pdfs.map((file) => (
                       <TableRow key={file.id} className="border-b last:border-0">
-                        <TableCell className="file">
-                          <span className="icon"><FileText size={18} /></span>
+                        <TableCell className="shelf-file">
+                          <span className="shelf-icon"><FileText size={18} /></span>
                           {file.name}
                         </TableCell>
-                        <TableCell className="action">
+                        <TableCell className="shelf-action">
                           <a 
                             href={`${file.url}?dl=1`} 
                             download={`${file.name}.pdf`} 
                             target="_blank" 
                             rel="noreferrer" 
-                            className="btn download"
+                            className="shelf-btn download"
                           >
                             <Download size={14} /> Download
                           </a>
-                          <button className="btn delete" onClick={() => handleDelete(file.id)}>
+                          <button className="shelf-btn delete" onClick={() => handleDelete(file.id)}>
                             <Trash size={14} />
                           </button>
                         </TableCell>
@@ -192,7 +192,7 @@ export default function MyShelf() {
           </TabsContent>
 
           <TabsContent value="videos">
-            <div className="header">
+            <div className="shelf-header">
               <h2>Video Library</h2>
               <AddVideoUrl onAdded={handleVideoAddSuccess} />
             </div>
@@ -200,38 +200,38 @@ export default function MyShelf() {
           </TabsContent>
 
           <TabsContent value="notes">
-            <div className="header">
+            <div className="shelf-header">
               <h2>Study Materials</h2>
               <UploadNotesButton type="notes" onUploaded={handleNoteUploadSuccess} />
             </div>
 
-            <div className="folder">
+            <div className="shelf-folder">
               {loading ? (
                 <div className="space-y-3">
                   {[1, 2, 3].map((i) => <Skeleton key={i} className="h-12 w-full rounded-lg" />)}
                 </div>
               ) : notes.length === 0 ? (
-                <div className="empty-box">No Notes uploaded yet. Lets Start Noting!</div>
+                <div className="shelf-empty-box">No Notes uploaded yet. Lets Start Noting!</div>
               ) : (
                 <Table>
                   <TableBody>
                     {notes.map((file) => (
                       <TableRow key={file.id} className="border-b last:border-0">
-                        <TableCell className="file">
-                          <span className="icon"><FileText size={18} /></span>
+                        <TableCell className="shelf-file">
+                          <span className="shelf-icon"><FileText size={18} /></span>
                           {file.name}
                         </TableCell>
-                        <TableCell className="action">
+                        <TableCell className="shelf-action">
                           <a 
                             href={`${file.url}?dl=1`} 
                             download={`${file.name}.pdf`} 
                             target="_blank" 
                             rel="noreferrer" 
-                            className="btn download"
+                            className="shelf-btn download"
                           >
                             <Download size={14} /> Download
                           </a>
-                          <button className="btn delete" onClick={() => handleDeleteNote(file.id)}>
+                          <button className="shelf-btn delete" onClick={() => handleDeleteNote(file.id)}>
                             <Trash size={14} />
                           </button>
                         </TableCell>

@@ -22,9 +22,8 @@ export default function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
         photoURL: ""
     });
 
-    // Fetch data when modal opens
     useEffect(() => {
-        if (!isOpen) return; // Only fetch when open
+        if (!isOpen) return; 
 
         const fetchUserData = async () => {
             const user = auth.currentUser;

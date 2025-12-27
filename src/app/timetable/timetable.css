@@ -115,7 +115,7 @@
 
 .subject-card {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
+  grid-template-columns: 2fr 1.2fr 1.2fr 0.8fr;
   gap: 1.5rem;
   align-items: end;
   background: #fff;
@@ -125,11 +125,28 @@
   box-shadow: 0 2px 8px rgba(0,0,0,0.02);
   animation: slideEnter 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
   transition: border-color 0.2s, transform 0.2s;
+  position: relative;
+  /* Default z-index */
+  z-index: 1; 
+}
+
+/* Fix: Higher z-index when a dropdown inside is active */
+.subject-card.is-active {
+  z-index: 100;
+  border-color: #d4a23a;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
 }
 
 .subject-card:hover {
   border-color: #d4a23a;
   transform: translateY(-2px);
+  /* Optional: Lift on hover too, but slightly less than 'active' */
+  z-index: 10; 
+}
+
+/* If a card is active, ensure hover doesn't lower the z-index */
+.subject-card.is-active:hover {
+  z-index: 100;
 }
 
 .field-wrapper {
@@ -157,6 +174,7 @@
   box-sizing: border-box;
   color: #1e1e1e;
   transition: all 0.2s;
+  height: 45px;
 }
 
 .sub-input:focus {
@@ -164,46 +182,78 @@
   border-color: #d4a23a;
 }
 
-.select-container {
+.custom-select-container {
   position: relative;
   width: 100%;
 }
 
-.sub-select {
-  appearance: none;
-  -webkit-appearance: none;
-  width: 100%;
-  padding: 12px 36px 12px 14px;
+.custom-select-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 14px;
+  height: 45px;
   border-radius: 12px;
   border: 1px solid #e5e5e5;
   background: #fcfcfc;
   font-size: 0.95rem;
   color: #1e1e1e;
-  outline: none;
   cursor: pointer;
   transition: all 0.2s;
-  font-weight: 500;
+  user-select: none;
 }
 
-.sub-select:hover {
+.custom-select-trigger:hover {
   background: #f5f5f5;
 }
 
-.sub-select:focus {
-  border-color: #d4a23a;
+.custom-select-trigger.is-open {
   background: #fff;
+  border-color: #d4a23a;
   box-shadow: 0 0 0 3px rgba(212, 162, 58, 0.1);
 }
 
-.select-arrow {
+.custom-select-options {
   position: absolute;
-  right: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  pointer-events: none;
-  color: #666;
-  width: 16px;
-  height: 16px;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #f0f0f0;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+  overflow: hidden;
+  z-index: 200; 
+  padding: 6px;
+  animation: menuSlide 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-origin: top center;
+}
+
+@keyframes menuSlide {
+  from { opacity: 0; transform: translateY(-8px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.custom-option {
+  padding: 10px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.15s;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.custom-option:hover {
+  background: #f7f7f7;
+}
+
+.custom-option.selected {
+  background: #fffbf0;
+  color: #d4a23a;
+  font-weight: 600;
 }
 
 .generate-btn {
@@ -242,13 +292,14 @@
   background: #fafafa;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1100px) {
   .config-section {
     grid-template-columns: 1fr;
   }
   
   .subject-card {
     grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
     gap: 1rem;
   }
   

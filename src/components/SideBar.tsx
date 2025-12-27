@@ -3,17 +3,17 @@
 import { useState, useEffect } from "react";
 import "./SideBar.css";
 import {
-    LayoutGrid, LayoutDashboard, FilePlus2, NotebookText, Bell, Coffee, Briefcase, HelpCircle, Menu, User2Icon, Car
+    LayoutGrid, LayoutDashboard, FilePlus2, NotebookText, Bell, Coffee, Briefcase, HelpCircle, Menu, User2Icon, Car, DollarSign 
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import SignOutButton from "./SignOutButton";
 import ProfileButton from "./ProfileButton"; 
-import ProfileModal from "./ProfileModal"; // <--- Import the Modal
+import ProfileModal from "./ProfileModal"; 
 
 export default function SideBar() {
     const [collapsed, setCollapsed] = useState(false);
-    const [isProfileOpen, setIsProfileOpen] = useState(false); // <--- Modal State
+    const [isProfileOpen, setIsProfileOpen] = useState(false); 
     const pathname = usePathname();
 
     useEffect(() => {
@@ -28,11 +28,11 @@ export default function SideBar() {
     };
 
     const navItems = [
-       // ... keep your navItems exactly as they are ...
        { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
        { label: "Timetable", href: "/timetable", icon: FilePlus2 },
        { label: "Notes.Co", href: "/notes", icon: NotebookText },
        { label: "My Shelf", href: "/shelf", icon: User2Icon },
+       { label: "Buy & Sell", href: "/buy&sell", icon: DollarSign  },
        { label: "JCafe", href: "/jcafe", icon: Coffee },
        { label: "CarBuddy", href: "/car-buddy", icon: Car },
        { label: "Campus Essentials", href: "/essentialServices", icon: Briefcase },
@@ -66,7 +66,6 @@ export default function SideBar() {
                     </ul>
                 </nav>
                 
-                {/* Profile Button opens the modal now */}
                 <ProfileButton 
                     collapsed={collapsed} 
                     onClick={() => setIsProfileOpen(true)} 
@@ -81,7 +80,6 @@ export default function SideBar() {
                 </div>
             </aside>
 
-            {/* The Modal lives here, outside the sidebar structure */}
             <ProfileModal 
                 isOpen={isProfileOpen} 
                 onClose={() => setIsProfileOpen(false)} 

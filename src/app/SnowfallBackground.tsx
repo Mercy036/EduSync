@@ -18,7 +18,7 @@ export default function SnowfallBackground() {
     >
       <Snowfall
         color="#d89c57ff" 
-        snowflakeCount={30}
+        snowflakeCount={40}
         radius={[1.5, 4.0]} 
         wind={[-0.5, 2.0]}
         speed={[1.0, 3.0]}

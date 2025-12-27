@@ -36,3 +36,15 @@ body {
   margin-left: 76px;
 }
 
+.shelf-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.shelf-header h2 {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+

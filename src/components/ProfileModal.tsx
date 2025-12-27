@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { auth } from "@/src/lib/firebase"; 
 import { updateProfile } from "firebase/auth";
 import { toast } from "react-toastify";
-// REMOVED: import "./ProfileModal.css"; 
+
 import { User, Mail, Phone, Save, Camera, X, ArrowLeft } from "lucide-react";
 
 interface ProfileModalProps {
@@ -57,14 +57,9 @@ export default function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
 
         try {
             await updateProfile(user, { displayName: formData.displayName });
-<<<<<<< HEAD
-            const token = await user.getIdToken();
-            const res = await fetch("/api/update-phone", { 
-=======
 
             const token = await user.getIdToken();
             const res = await fetch("/api/update-phone", {
->>>>>>> 887f08c073a8c63d5a936f8059da586b29268c46
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ idToken: token, phoneNo: formData.phoneNumber })
@@ -86,11 +81,6 @@ export default function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
     if (!isOpen) return null;
 
     return (
-<<<<<<< HEAD
-        <div className="profile-overlay">
-            <div className="profile-modal-card">
-                <button className="close-modal-btn" onClick={onClose}>
-=======
         // Overlay: fixed position, blurred backdrop
         <div className="fixed inset-0 bg-black/40 backdrop-blur-md flex justify-center items-center z-[9999] animate-[fadeIn_0.2s_ease-out]">
             
@@ -102,7 +92,6 @@ export default function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
                     className="absolute top-5 right-5 text-gray-400 hover:text-gray-800 transition-colors bg-transparent border-none cursor-pointer" 
                     onClick={onClose}
                 >
->>>>>>> 887f08c073a8c63d5a936f8059da586b29268c46
                     <X size={24} />
                 </button>
 

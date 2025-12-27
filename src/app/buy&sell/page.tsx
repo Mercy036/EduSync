@@ -29,8 +29,9 @@ interface Listing {
   postedAt: string;
 }
 
-// --- Reliable Image Links (Unsplash) ---
+// --- Mock Data (Expanded) ---
 const SAMPLE_LISTINGS: Listing[] = [
+  // --- Existing Items (Preserved) ---
   {
     id: "1",
     title: "Engineering Mathematics - H.K. Dass",
@@ -90,6 +91,80 @@ const SAMPLE_LISTINGS: Listing[] = [
     sellerName: "Sneha Reddy",
     sellerJoined: "2023",
     postedAt: "Just now"
+  },
+
+  // --- New Added Items ---
+  {
+    id: "7",
+    title: "Prestige Electric Kettle (1.5L)",
+    price: 550,
+    category: "Appliances",
+    location: "Jaypee Sector 128 Campus",
+    description: "Used for 6 months. Works perfectly. Great for making maggi/coffee in hostel. Cable included.",
+    image: "https://imgs.search.brave.com/bphCjLfWDlDi2wYmrDrrsnJYuW7pB7iKAgxQBWPdi1E/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly81Lmlt/aW1nLmNvbS9kYXRh/NS9TRUxMRVIvRGVm/YXVsdC8yMDI0Lzkv/NDUyNjY1OTMxL01X/L1ZUL0lNLzg3NzE2/ODkzL3ByZXN0aWdl/LWVsZWN0cmljLWtl/dHRsZS01MDB4NTAw/LmpwZw",
+    sellerName: "Karan Mehta",
+    sellerJoined: "2023",
+    postedAt: "10 hours ago"
+  },
+  {
+    id: "8",
+    title: "Chemistry Lab Coat & Goggles",
+    price: 250,
+    category: "Clothing",
+    location: "Jaypee Sector 62 Campus",
+    description: "White lab coat size L. Includes safety goggles. Washed and ironed. No stains.",
+    image: "https://imgs.search.brave.com/jcOl-bb-yM1EKDyC9IN8OCPAiNp2TzsPR6zke3G4PGU/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9tLm1l/ZGlhLWFtYXpvbi5j/b20vaW1hZ2VzL0kv/NjE5a2owSWo3Q0wu/anBn",
+    sellerName: "Ananya Roy",
+    sellerJoined: "2024",
+    postedAt: "1 day ago"
+  },
+  {
+    id: "9",
+    title: "Yamaha F310 Acoustic Guitar",
+    price: 4200,
+    category: "Other",
+    location: "Jaypee Sector 62 Campus",
+    description: "Good condition, slight scratch on the back but doesn't affect sound. Strings replaced last week. Comes with bag.",
+    image: "https://images.unsplash.com/photo-1550291652-6ea9114a47b1?auto=format&fit=crop&q=80&w=800",
+    sellerName: "Dev Patel",
+    sellerJoined: "2022",
+    postedAt: "4 days ago"
+  },
+  {
+    id: "10",
+    title: "Comfy Bean Bag (XXL)",
+    price: 900,
+    category: "Other",
+    location: "Jaypee Sector 128 Campus",
+    description: "Black leatherette bean bag. Filled with beans. Super comfy for gaming or studying. Pickup only.",
+    image: "https://imgs.search.brave.com/7zohzZ35KFs2diYgy0uRuDb2Z4uoNwKanAgs84RMWIg/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly91YmVh/bmJhZy5jb20vd3At/Y29udGVudC91cGxv/YWRzLzIwMjMvMTEv/Q29tZnktQmVhbmJh/Zy1IdWdlLTRYTC1M/aW5lbi1CZWlnZV8t/NDMweDQzMC5wbmc",
+    sellerName: "Sahil Khan",
+    sellerJoined: "2021",
+    postedAt: "6 hours ago"
+  },
+  {
+    id: "11",
+    title: "Python Crash Course - 2nd Ed",
+    price: 350,
+    category: "Books",
+    location: "Jaypee Sector 62 Campus",
+    description: "Eric Matthes. Best book for beginners. Mint condition, no pen marks.",
+    image: "https://images.unsplash.com/photo-1555952494-efd681c7e3f9?auto=format&fit=crop&q=80&w=800",
+    sellerName: "Ishita Verma",
+    sellerJoined: "2024",
+    postedAt: "Just now"
+  },
+  {
+    id: "12",
+    title: "Extension Board (4 Sockets)",
+    price: 200,
+    category: "Electronics",
+    location: "Jaypee Sector 128 Campus",
+    description: "Belkin surge protector. 2 meter wire. Essential if your hostel room has only one plug point.",
+    image: "https://images.unsplash.com/photo-1555617766-c94804975da3?auto=format&fit=crop&q=80&w=800",
+    sellerName: "Rahul Jin",
+    sellerJoined: "2023",
+    postedAt: "3 days ago"
   }
 ];
 

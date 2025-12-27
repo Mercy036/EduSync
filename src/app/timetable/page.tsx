@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import AuthGuard from "@/src/components/AuthGuard";
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { ChevronDown, ChevronUp, Loader2, Calendar, RefreshCcw } from "lucide-react";
 import "./timetable.css";
 
 interface Subject {
@@ -16,6 +16,24 @@ interface Subject {
 interface Option {
   value: string;
   label: string;
+}
+
+interface Session {
+  time_slot: string;
+  subject: string;
+  focus_topic: string;
+  duration_mins: number;
+}
+
+interface DaySchedule {
+  day: string;
+  total_hours: number;
+  sessions: Session[];
+}
+
+interface TimetableResponse {
+  strategy_summary: string;
+  schedule: DaySchedule[];
 }
 
 const PREFERENCE_OPTIONS: Option[] = [
@@ -55,7 +73,7 @@ const CustomSelect = ({
         containerRef.current &&
         !containerRef.current.contains(event.target as Node)
       ) {
-        onToggle(); // Close if clicked outside
+        onToggle();
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
@@ -100,8 +118,10 @@ export default function TimetablePage() {
   const [subjectCount, setSubjectCount] = useState<number>(0);
   const [subjects, setSubjects] = useState<Subject[]>([]);
   
-  // Track which specific dropdown is active: "subjectId-type"
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  
+  const [isLoading, setIsLoading] = useState(false);
+  const [timetable, setTimetable] = useState<TimetableResponse | null>(null);
 
   useEffect(() => {
     const count = Math.max(0, subjectCount);
@@ -130,8 +150,29 @@ export default function TimetablePage() {
     );
   };
 
-  const handleGenerate = () => {
-    console.log({ totalHours, subjects });
+  const handleGenerate = async () => {
+    if (totalHours <= 0 || subjects.length === 0) return;
+
+    setIsLoading(true);
+    setTimetable(null);
+
+    try {
+      const res = await fetch("/api/generate-timetable", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ totalHours, subjects }),
+      });
+
+      if (!res.ok) throw new Error("Failed");
+
+      const data = await res.json();
+      setTimetable(data);
+    } catch (error) {
+      console.error(error);
+      alert("Failed to generate timetable. Please check your API key.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleToggleDropdown = (id: string) => {
@@ -148,122 +189,178 @@ export default function TimetablePage() {
           <p>Configure your weekly learning schedule.</p>
         </header>
 
-        <div className="config-section">
-          <div className="input-group">
-            <label>Weekly Available Hours</label>
-            <input
-              type="number"
-              className="main-input"
-              placeholder="e.g. 40"
-              value={totalHours || ""}
-              onChange={(e) => setTotalHours(parseInt(e.target.value) || 0)}
-            />
-          </div>
+        {/* CONDITION: If timetable exists, show Results. Else, show Form */}
+        {!timetable ? (
+          <>
+            <div className="config-section">
+              <div className="input-group">
+                <label>Weekly Available Hours</label>
+                <input
+                  type="number"
+                  className="main-input"
+                  placeholder="e.g. 40"
+                  value={totalHours || ""}
+                  onChange={(e) => setTotalHours(parseInt(e.target.value) || 0)}
+                />
+              </div>
 
-          <div className="input-group">
-            <label>Number of Subjects</label>
-            <input
-              type="number"
-              className="main-input"
-              placeholder="e.g. 6"
-              value={subjectCount || ""}
-              onChange={(e) => setSubjectCount(parseInt(e.target.value) || 0)}
-            />
-          </div>
-        </div>
-
-        <div className="subjects-section">
-          <div className="section-title">
-            <span>Subject Details</span>
-            {subjects.length > 0 && (
-              <span className="subject-count-badge">
-                {subjects.length} Subjects
-              </span>
-            )}
-          </div>
-
-          {subjects.length === 0 ? (
-            <div className="empty-state">
-              <p>Enter the number of subjects above to begin.</p>
+              <div className="input-group">
+                <label>Number of Subjects</label>
+                <input
+                  type="number"
+                  className="main-input"
+                  placeholder="e.g. 6"
+                  value={subjectCount || ""}
+                  onChange={(e) => setSubjectCount(parseInt(e.target.value) || 0)}
+                />
+              </div>
             </div>
-          ) : (
-            <div className="subjects-grid">
-              {subjects.map((subject, index) => {
-                // Check if any dropdown in this specific card is active
-                const isCardActive = 
-                  activeDropdown === `${subject.id}-preference` || 
-                  activeDropdown === `${subject.id}-importance`;
 
-                return (
-                  <div
-                    key={subject.id}
-                    className={`subject-card ${isCardActive ? "is-active" : ""}`}
-                    style={{ animationDelay: `${index * 60}ms` }}
+            <div className="subjects-section">
+              <div className="section-title">
+                <span>Subject Details</span>
+                {subjects.length > 0 && (
+                  <span className="subject-count-badge">
+                    {subjects.length} Subjects
+                  </span>
+                )}
+              </div>
+
+              {subjects.length === 0 ? (
+                <div className="empty-state">
+                  <p>Enter the number of subjects above to begin.</p>
+                </div>
+              ) : (
+                <div className="subjects-grid">
+                  {subjects.map((subject, index) => {
+                    const isCardActive = 
+                      activeDropdown === `${subject.id}-preference` || 
+                      activeDropdown === `${subject.id}-importance`;
+
+                    return (
+                      <div
+                        key={subject.id}
+                        className={`subject-card ${isCardActive ? "is-active" : ""}`}
+                        style={{ animationDelay: `${index * 60}ms` }}
+                      >
+                        <div className="field-wrapper">
+                          <label>Subject Name</label>
+                          <input
+                            type="text"
+                            className="sub-input"
+                            placeholder={`Subject ${index + 1}`}
+                            value={subject.name}
+                            onChange={(e) =>
+                              updateSubject(subject.id, "name", e.target.value)
+                            }
+                          />
+                        </div>
+
+                        <div className="field-wrapper">
+                          <label>Preference</label>
+                          <CustomSelect
+                            options={PREFERENCE_OPTIONS}
+                            value={subject.preference}
+                            isOpen={activeDropdown === `${subject.id}-preference`}
+                            onToggle={() => handleToggleDropdown(`${subject.id}-preference`)}
+                            onChange={(val) =>
+                              updateSubject(subject.id, "preference", val)
+                            }
+                          />
+                        </div>
+
+                        <div className="field-wrapper">
+                          <label>Importance</label>
+                          <CustomSelect
+                            options={IMPORTANCE_OPTIONS}
+                            value={subject.importance}
+                            isOpen={activeDropdown === `${subject.id}-importance`}
+                            onToggle={() => handleToggleDropdown(`${subject.id}-importance`)}
+                            onChange={(val) =>
+                              updateSubject(subject.id, "importance", val)
+                            }
+                          />
+                        </div>
+
+                        <div className="field-wrapper">
+                          <label>Min Hours</label>
+                          <input
+                            type="number"
+                            className="sub-input"
+                            min={1}
+                            value={subject.minHours}
+                            onChange={(e) =>
+                              updateSubject(
+                                subject.id,
+                                "minHours",
+                                parseInt(e.target.value) || 0
+                              )
+                            }
+                          />
+                        </div>
+                      </div>
+                    );
+                  })}
+                  
+                  <button 
+                    className="generate-btn" 
+                    onClick={handleGenerate}
+                    disabled={isLoading}
                   >
-                    <div className="field-wrapper">
-                      <label>Subject Name</label>
-                      <input
-                        type="text"
-                        className="sub-input"
-                        placeholder={`Subject ${index + 1}`}
-                        value={subject.name}
-                        onChange={(e) =>
-                          updateSubject(subject.id, "name", e.target.value)
-                        }
-                      />
-                    </div>
-
-                    <div className="field-wrapper">
-                      <label>Preference</label>
-                      <CustomSelect
-                        options={PREFERENCE_OPTIONS}
-                        value={subject.preference}
-                        isOpen={activeDropdown === `${subject.id}-preference`}
-                        onToggle={() => handleToggleDropdown(`${subject.id}-preference`)}
-                        onChange={(val) =>
-                          updateSubject(subject.id, "preference", val)
-                        }
-                      />
-                    </div>
-
-                    <div className="field-wrapper">
-                      <label>Importance</label>
-                      <CustomSelect
-                        options={IMPORTANCE_OPTIONS}
-                        value={subject.importance}
-                        isOpen={activeDropdown === `${subject.id}-importance`}
-                        onToggle={() => handleToggleDropdown(`${subject.id}-importance`)}
-                        onChange={(val) =>
-                          updateSubject(subject.id, "importance", val)
-                        }
-                      />
-                    </div>
-
-                    <div className="field-wrapper">
-                      <label>Min Hours</label>
-                      <input
-                        type="number"
-                        className="sub-input"
-                        min={1}
-                        value={subject.minHours}
-                        onChange={(e) =>
-                          updateSubject(
-                            subject.id,
-                            "minHours",
-                            parseInt(e.target.value) || 0
-                          )
-                        }
-                      />
-                    </div>
-                  </div>
-                );
-              })}
-              <button className="generate-btn" onClick={handleGenerate}>
-                Generate Timetable
+                    {isLoading ? (
+                      <>
+                        <Loader2 className="spinner" size={20} />
+                        Generating Plan...
+                      </>
+                    ) : (
+                      "Generate Timetable"
+                    )}
+                  </button>
+                </div>
+              )}
+            </div>
+          </>
+        ) : (
+          <div className="results-section">
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
+              <div className="section-title" style={{ margin: 0 }}>
+                <span>Your Personal Plan</span>
+                <Calendar size={20} />
+              </div>
+              <button className="reset-btn" onClick={() => setTimetable(null)}>
+                <RefreshCcw size={16} />
+                Create New Plan
               </button>
             </div>
-          )}
-        </div>
+
+            <div className="strategy-box">
+              <h3>Strategy Overview</h3>
+              <p>{timetable.strategy_summary}</p>
+            </div>
+
+            <div className="schedule-grid">
+              {timetable.schedule.map((day, i) => (
+                <div key={i} className="day-card">
+                  <div className="day-header">
+                    <span className="day-name">{day.day}</span>
+                    <span className="day-hours">{day.total_hours} hrs</span>
+                  </div>
+                  <div className="session-list">
+                    {day.sessions.map((session, j) => (
+                      <div key={j} className="session-item">
+                        <span className="session-time">{session.time_slot}</span>
+                        <div className="session-details">
+                          <span className="session-subject">{session.subject}</span>
+                          <span className="session-topic">{session.focus_topic}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </AuthGuard>
   );

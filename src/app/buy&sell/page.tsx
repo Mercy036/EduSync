@@ -38,7 +38,7 @@ const SAMPLE_LISTINGS: Listing[] = [
     category: "Books",
     location: "Jaypee Sector 62 Campus",
     description: "Slightly used copy. No highlighting. Must have for 1st years.",
-    image: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&q=80&w=800", 
+    image: "https://imgs.search.brave.com/nKu_MHDhn9PO_ZM1ERTkeuHHhpmgQrIvuxzfuLZP3DA/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMtbmEuc3NsLWlt/YWdlcy1hbWF6b24u/Y29tL2ltYWdlcy9J/LzYxWEM2cWRSLUtM/LmpwZw", 
     sellerName: "Aarav Singh",
     sellerJoined: "2023",
     postedAt: "2 days ago"
@@ -50,7 +50,7 @@ const SAMPLE_LISTINGS: Listing[] = [
     category: "Electronics",
     location: "Jaypee Sector 128 Campus",
     description: "Original Casio calculator. Solar panel working perfectly.",
-    image: "https://images.unsplash.com/photo-1594910620242-6346299b0c03?auto=format&fit=crop&q=80&w=800",
+    image: "https://imgs.search.brave.com/_w2Y5MHYXtgFeB40Ee9jScOHPabopVxP9dRzzlGaaqs/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/Y3JlYXRlLnZpc3Rh/LmNvbS9hcGkvbWVk/aWEvc21hbGwvNTIz/NzA5OTI2L3N0b2Nr/LXBob3RvLXNjaWVu/dGlmaWMtY2FsY3Vs/YXRvci10ZXh0dXJl/ZC1iYWNrZ3JvdW5k/LXN0b2NrLWltYWdl",
     sellerName: "Priya Sharma",
     sellerJoined: "2022",
     postedAt: "5 hours ago"

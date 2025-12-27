@@ -62,7 +62,7 @@ const SAMPLE_LISTINGS: Listing[] = [
     category: "Appliances",
     location: "Jaypee Sector 62 Campus",
     description: "Compact size, fits on study table. Lifesaver for summer.",
-    image: "https://images.unsplash.com/photo-1618941716939-553dfdfc674d?auto=format&fit=crop&q=80&w=800",
+    image: "https://imgs.search.brave.com/GxZqVPfu0fvdjcB40EYAxz-WC_xkJUJ2Lu5t4mndplU/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly90aHVt/YnMuZHJlYW1zdGlt/ZS5jb20vYi9vbGQt/ZWxlY3RyaWMtdGFi/bGUtZmFuLXByb3Rl/Y3RpdmUtZ3JpbGwt/b2xkLWVsZWN0cmlj/LXRhYmxlLWZhbi1w/cm90ZWN0aXZlLWdy/aWxsLTQwODA4MDU3/OS5qcGc",
     sellerName: "Rohan Gupta",
     sellerJoined: "2021",
     postedAt: "1 day ago"
@@ -74,7 +74,7 @@ const SAMPLE_LISTINGS: Listing[] = [
     category: "Vehicles",
     location: "Jaypee Sector 128 Campus",
     description: "Excellent condition. Great for commuting between gates.",
-    image: "https://images.unsplash.com/photo-1485965120184-e224f7a1db69?auto=format&fit=crop&q=80&w=800",
+    image: "https://imgs.search.brave.com/CSi-RpcP9Zop9DLhcgiJcwlnVqEWKjlM4F2gKEuH_k8/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly93d3cu/YmlrZXM0c2FsZS5p/bi9waWN0dXJlcy9k/ZWZhdWx0L2RlY2F0/aGxvbi10cmliYW4t/cmMxMDAtZmxhdC1i/YXIvZGVjYXRobG9u/LXRyaWJhbi1yYzEw/MC1mbGF0LWJhci1w/aWMtMTEuanBn",
     sellerName: "Vikram Malhotra",
     sellerJoined: "2022",
     postedAt: "3 days ago"
@@ -86,7 +86,7 @@ const SAMPLE_LISTINGS: Listing[] = [
     category: "Electronics",
     location: "Jaypee Sector 62 Campus",
     description: "WH-CH710N. 30hr battery life. Barely used.",
-    image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&q=80&w=800",
+    image: "https://imgs.search.brave.com/t-0jyTcgQd5zWlRG0bfQQQ2J0TgKRG-xjc0-zcPj4Tc/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pLmVi/YXlpbWcuY29tL2lt/YWdlcy9nL2RLSUFB/ZVN3ZDROcFIwNEcv/cy1sNDAwLndlYnA",
     sellerName: "Sneha Reddy",
     sellerJoined: "2023",
     postedAt: "Just now"

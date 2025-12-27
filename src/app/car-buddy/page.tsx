@@ -4,7 +4,8 @@ import { useState, useMemo } from "react"
 import { MapPin, Star } from "lucide-react"
 import "./car-buddy.css"
 import ChatWindow from "@/src/components/ChatWindow"
-import CarpoolHero from "@/src/components/CarpoolHero" // Ensure path is correct
+import CarpoolHero from "@/src/components/CarpoolHero"
+import PlaceholderMap from "@/src/components/PlaceholderMap"
 
 interface Ride {
   id: string
@@ -34,7 +35,7 @@ export default function CarpoolPage() {
       h |= 0
     }
     const positive = Math.abs(h)
-    const scaled = (positive % 150) / 100 // 0.00 - 1.49
+    const scaled = (positive % 150) / 100
     return parseFloat((3.5 + scaled).toFixed(1))
   }
 
@@ -53,33 +54,28 @@ export default function CarpoolPage() {
     <section className="carbuddy-dashboard-root">
       <header className="carbuddy-main-header">
         <div className="carbuddy-welcome-container">
-          <h1>J<span>Carpool</span></h1>
+          <h1>Car<span>Buddy</span></h1>
           <p>Find students heading your way.</p>
         </div>
       </header>
 
       <div className="carbuddy-bento-layout">
-        
-        {/* FIX: Use the component directly. 
-            We pass 'carbuddy-tile-wide' if your CSS grid needs it to span columns. */}
-        <CarpoolHero 
-          className="carbuddy-tile-wide" 
-          offerPrice={offerPrice} 
-          setOfferPrice={setOfferPrice} 
+        <CarpoolHero
+          className="carbuddy-tile-wide"
+          offerPrice={offerPrice}
+          setOfferPrice={setOfferPrice}
         />
-
-        {/* Ride List Tile */}
         <div className="carbuddy-tile carbuddy-tile-wide carbuddy-tile-tall">
           <div className="carbuddy-list-header">
             <h3>Students Also Going Your Direction</h3>
             <p>{nearbyRides.length} active riders within 10km</p>
           </div>
-          
+
           <div className="carbuddy-scroll-area">
             {nearbyRides.map((ride) => (
               <div key={ride.id} className="carbuddy-ride-item">
                 <div className="carbuddy-ride-info">
-                  <button 
+                  <button
                     className="carbuddy-name-trigger"
                     onClick={() => setSelectedRide(ride)}
                   >
@@ -104,8 +100,6 @@ export default function CarpoolPage() {
             ))}
           </div>
         </div>
-
-        {/* Stats Tiles */}
         <div className="carbuddy-tile carbuddy-stat-tile">
           <span className="carbuddy-tag-label">Rewards</span>
           <p className="carbuddy-stat-value">4.8</p>
@@ -119,8 +113,19 @@ export default function CarpoolPage() {
         </div>
       </div>
 
+
+        <div className="carbuddy-tile carbuddy-tile-wide carbuddy-map-tile">
+          <div className="carbuddy-list-header">
+            <h3>Nearby Destinations</h3>
+            <p>Visual placeholder map</p>
+          </div>
+
+          <PlaceholderMap />
+        </div>
+
+
       {selectedRide && (
-        <ChatWindow 
+        <ChatWindow
           recipientName={selectedRide.name}
           destination={selectedRide.destination}
           onClose={() => setSelectedRide(null)}

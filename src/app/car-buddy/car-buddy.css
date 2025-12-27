@@ -452,6 +452,19 @@
 .carbuddy-send-btn:active {
   transform: scale(0.95);
 }
+#carbuddy-map {
+  min-height: 280px;
+}
+
+.leaflet-container {
+  background: #f5f5f5;
+  border-radius: 14px;
+}
+.carbuddy-map-tile {
+  margin-top: 2rem;
+}
+
+
 
 @media (max-width: 900px) {
   .carbuddy-bento-layout {

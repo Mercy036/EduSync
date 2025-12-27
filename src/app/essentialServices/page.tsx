@@ -1,9 +1,6 @@
 "use client";
 import { useState } from "react";
 import "./essential.css";
-// import AuthGuard from "@/src/components/AuthGuard"; 
-
-// REMOVED "Car Buddy" from the type definition
 type TabType = "Library" | "Buy & Sell" | "Print Out";
 
 export default function CampusEssentials() {
@@ -32,7 +29,6 @@ export default function CampusEssentials() {
     };
 
     return (
-        // <AuthGuard>
         <section className="ce-page-container">
             <header className="ce-header">
                 <h1>Campus<span>Essentials</span></h1>
@@ -52,7 +48,6 @@ export default function CampusEssentials() {
             </nav>
 
             <div className="ce-bento-layout">
-                {/* Main Interaction Card */}
                 <div className="ce-card ce-main-portal">
                     <span className="ce-badge">Live Portal</span>
                     <h3>{tabContent[activeTab].title}</h3>
@@ -78,8 +73,6 @@ export default function CampusEssentials() {
                         </ul>
                     </div>
                 </div>
-
-                {/* System Stats Card */}
                 <div className="ce-card ce-status-card">
                     <h4>System Health</h4>
                     <div className="ce-stat-box">
@@ -97,8 +90,6 @@ export default function CampusEssentials() {
                         </div>
                     </div>
                 </div>
-
-                {/* Tips Card */}
                 <div className="ce-card ce-tip-card">
                     <h4 className="ce-gold-text">Pro-Tip</h4>
                     <p>
@@ -107,8 +98,6 @@ export default function CampusEssentials() {
                         {activeTab === "Print Out" && "Use the Block B printer; it rarely jams."}
                     </p>
                 </div>
-
-                {/* Help Card */}
                 <div className="ce-card ce-help-card">
                     <h4>Need Help?</h4>
                     <p>Ping the student coordinator for urgent issues.</p>
@@ -119,6 +108,5 @@ export default function CampusEssentials() {
                 <p>EduSync // For the hustle.</p>
             </footer>
         </section>
-        // </AuthGuard>
     );
 }

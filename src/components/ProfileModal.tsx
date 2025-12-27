@@ -21,19 +21,14 @@ export default function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
         phoneNumber: "",
         photoURL: ""
     });
-
-    // Fetch data when modal opens
     useEffect(() => {
-        if (!isOpen) return; // Only fetch when open
+        if (!isOpen) return; 
 
         const fetchUserData = async () => {
             const user = auth.currentUser;
             if (user) {
                 try {
-                    // 1. Get Token
                     const token = await user.getIdToken();
-                    
-                    // 2. Fetch Phone Number from MongoDB
                     const res = await fetch("/api/user", {
                         headers: { Authorization: `Bearer ${token}` }
                     });
@@ -42,7 +37,6 @@ export default function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
                     setFormData({
                         displayName: user.displayName || "Student",
                         email: user.email || "",
-                        // Use MongoDB phone if available, else empty
                         phoneNumber: data.user?.phoneNo || "", 
                         photoURL: user.photoURL || "https://avatar.iran.liara.run/public"
                     });
@@ -61,12 +55,9 @@ export default function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
         if (!user) return;
 
         try {
-            // Update Display Name (Firebase)
             await updateProfile(user, { displayName: formData.displayName });
-
-            // Update Phone (MongoDB)
             const token = await user.getIdToken();
-            const res = await fetch("/api/update-phone", { // Re-using your existing route
+            const res = await fetch("/api/update-phone", { 
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ idToken: token, phoneNo: formData.phoneNumber })
@@ -90,8 +81,6 @@ export default function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
     return (
         <div className="profile-overlay">
             <div className="profile-modal-card">
-                
-                {/* Back / Close Button */}
                 <button className="close-modal-btn" onClick={onClose}>
                     <X size={24} />
                 </button>

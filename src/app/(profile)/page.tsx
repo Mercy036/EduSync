@@ -23,8 +23,6 @@ export default function ProfilePage() {
             const user = auth.currentUser;
             if (user) {
                 let phone = "";
-                // Try fetching phone from MongoDB or Firestore if you used it before
-                // For now, we just load what's in state or default
                 setFormData({
                     displayName: user.displayName || "Student",
                     email: user.email || "",
@@ -42,10 +40,7 @@ export default function ProfilePage() {
         if (!user) return;
 
         try {
-            // 1. Update Display Name (Firebase Auth)
             await updateProfile(user, { displayName: formData.displayName });
-
-            // 2. Update Phone Number (MongoDB via API)
             const token = await user.getIdToken();
             const res = await fetch("/api/update-phone", {
                 method: "POST",

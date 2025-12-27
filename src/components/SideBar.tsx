@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import "./SideBar.css";
-/* ... Keep your existing icon imports ... */
 import {
     LayoutGrid, LayoutDashboard, FilePlus2, NotebookText, Bell, Coffee, Briefcase, HelpCircle, Menu, User2Icon, Car
 } from "lucide-react";

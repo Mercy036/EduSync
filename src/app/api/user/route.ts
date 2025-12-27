@@ -12,13 +12,11 @@ export async function GET(req: Request) {
     const decoded = await firebaseAdmin.auth().verifyIdToken(token);
 
     await dbConnect();
-    
-    // Find user in MongoDB using the Firebase UID
     const user = await UserModel.findOne({ uid: decoded.uid });
 
     return NextResponse.json({ 
       success: true, 
-      user: user || {} // Return empty object if user doesn't exist yet
+      user: user || {} 
     });
 
   } catch (error) {

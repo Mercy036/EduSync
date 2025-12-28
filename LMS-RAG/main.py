@@ -107,7 +107,7 @@ def initialize_collection():
         qdrant_client.create_collection(
             collection_name=COLLECTION_NAME,
             vectors_config=VectorParams(
-                size=3072,
+                size=768,
                 distance=Distance.COSINE,
             ),
         )

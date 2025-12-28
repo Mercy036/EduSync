@@ -17,7 +17,15 @@ export default function PlaceholderMap({
     ;(async () => {
       if (!mounted) return
       const L = await import("leaflet")
-      await import("leaflet/dist/leaflet.css")
+      // Inject Leaflet CSS via a link tag to avoid server-side CSS dynamic import errors
+      if (typeof document !== "undefined" && !document.getElementById("leaflet-css")) {
+        const link = document.createElement("link")
+        link.id = "leaflet-css"
+        link.rel = "stylesheet"
+        link.href = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        link.crossOrigin = ""
+        document.head.appendChild(link)
+      }
 
       const el = document.getElementById("carbuddy-map")
       // If a map instance was previously attached to the element, remove it first

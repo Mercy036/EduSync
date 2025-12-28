@@ -16,15 +16,13 @@ export default function SnowfallBackground() {
         pointerEvents: "none",
       }}
     >
-      <div style={{ width: "100%", height: "100%", filter: "blur(1px)", opacity: 0.95 }}>
-        <Snowfall
-          color="#d89c57ff"
-          snowflakeCount={40}
-          radius={[2.0, 5.0]}
-          wind={[-0.5, 2.0]}
-          speed={[1.0, 3.0]}
-        />
-      </div>
+      <Snowfall
+        color="#d89c57ff" 
+        snowflakeCount={40}
+        radius={[1.5, 4.0]} 
+        wind={[-0.5, 2.0]}
+        speed={[1.0, 3.0]}
+      />
     </div>
   );
 }

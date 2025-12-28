@@ -1,4 +1,3 @@
-/* Container Reset */
 .marketplace-container {
   max-width: 1600px;
   margin: 0 auto;
@@ -7,7 +6,6 @@
   box-sizing: border-box;
 }
 
-/* --- Header --- */
 .marketplace-header {
   display: flex;
   justify-content: space-between;
@@ -89,7 +87,6 @@
   background: #333;
 }
 
-/* --- Categories --- */
 .category-filter {
   display: flex;
   gap: 10px;
@@ -199,7 +196,6 @@
   gap: 6px;
 }
 
-/* --- Modals (BIGGER SIZE UPDATE) --- */
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -212,15 +208,15 @@
   padding: 2rem;
 }
 
-/* Detail Modal - Size Increased Here */
+
 .detail-modal {
   background: #ffffff;
   width: 100%;
-  max-width: 1300px; /* Increased from 1000px */
-  height: 85vh;      /* Use 85% of screen height instead of fixed pixels */
+  max-width: 1300px; 
+  height: 85vh;      
   border-radius: 24px;
   display: grid;
-  grid-template-columns: 1.5fr 1fr; /* Give more space to the image side */
+  grid-template-columns: 1.5fr 1fr; 
   overflow: hidden;
   box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
   position: relative;
@@ -238,7 +234,7 @@
   right: 20px;
   background: white;
   border: 1px solid #eee;
-  width: 44px; /* Slightly bigger close button */
+  width: 44px; 
   height: 44px;
   border-radius: 50%;
   cursor: pointer;
@@ -267,11 +263,11 @@
 .modal-img-full {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Keeps image filling the space beautifully */
+  object-fit: cover; 
 }
 
 .modal-right {
-  padding: 3.5rem; /* More breathing room */
+  padding: 3.5rem;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
@@ -279,7 +275,7 @@
 }
 
 .modal-title {
-  font-size: 2.5rem; /* Larger title */
+  font-size: 2.5rem;
   font-weight: 800;
   margin: 0 0 0.5rem 0;
   color: #1a1a1a;
@@ -287,7 +283,7 @@
 }
 
 .modal-price-large {
-  font-size: 2rem; /* Larger price */
+  font-size: 2rem; 
   font-weight: 700;
   color: #1a1a1a;
   margin-bottom: 2rem;
@@ -389,7 +385,6 @@
 .btn-msg:hover { opacity: 0.9; }
 .btn-share:hover { background: #e5e5e5; }
 
-/* --- Sell Form Modal --- */
 .sell-form-container {
   padding: 2.5rem;
   width: 100%;
@@ -509,9 +504,7 @@
   margin-top: 1rem;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
-/* ... existing styles ... */
 
-/* Delete Button Styles */
 .btn-delete {
   background: #fff;
   border: 1px solid #ff4d4d;
@@ -533,7 +526,7 @@
   background: #fff0f0;
 }
 
-/* Enhanced Chat Modal */
+
 .chat-modal-content {
   display: flex;
   flex-direction: column;

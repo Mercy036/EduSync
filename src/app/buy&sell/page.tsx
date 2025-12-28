@@ -16,7 +16,8 @@ import {
   ImageIcon,
   Trash2,
   Loader2,
-  Send
+  Send,
+  AlertCircle
 } from "lucide-react";
 import "./marketplace.css";
 
@@ -36,7 +37,7 @@ interface Listing {
 
 const CATEGORIES = ["All", "Books", "Electronics", "Appliances", "Stationery", "Vehicles", "Clothing", "Other"];
 
-// --- 1. MOCK DATA ---
+// Mock Data
 const SAMPLE_LISTINGS: Listing[] = [
   {
     _id: "mock-1",
@@ -64,51 +65,35 @@ const SAMPLE_LISTINGS: Listing[] = [
     sellerJoined: "2022",
     createdAt: new Date().toISOString()
   },
-  {
-    _id: "mock-3",
-    title: "Mini Table Fan",
-    price: 600,
-    category: "Appliances",
-    location: "Jaypee Sector 62 Campus",
-    description: "Compact size, fits on study table. Lifesaver for summer in the hostel.",
-    image: "https://images.unsplash.com/photo-1618941716939-553dfdfc674d?auto=format&fit=crop&q=80&w=800",
-    sellerName: "Rohan Gupta",
-    sellerId: "mock-seller-3",
-    sellerJoined: "2021",
-    createdAt: new Date().toISOString()
-  },
-  {
-    _id: "mock-4",
-    title: "Sony Noise Cancelling Headphones",
-    price: 4500,
-    category: "Electronics",
-    location: "Jaypee Sector 62 Campus",
-    description: "WH-CH710N. 30hr battery life. Barely used, upgrading to the new model.",
-    image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&q=80&w=800",
-    sellerName: "Sneha Reddy",
-    sellerId: "mock-seller-4",
-    sellerJoined: "2023",
-    createdAt: new Date().toISOString()
-  }
+  // ... (keep your other mocks if desired)
+];
+
+const SUGGESTED_MESSAGES = [
+  "Hi, is this still available?",
+  "Is the price negotiable?",
+  "Can I see it in person tomorrow?",
+  "What is the condition like?"
 ];
 
 export default function CampusMarketplacePage() {
   const searchParams = useSearchParams();
-  
-  // Initialize with Mock Data
   const [listings, setListings] = useState<Listing[]>(SAMPLE_LISTINGS);
   const [isLoading, setIsLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSendingMsg, setIsSendingMsg] = useState(false);
   
+  // States
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedItem, setSelectedItem] = useState<Listing | null>(null);
   
+  // Modals
   const [isSellModalOpen, setIsSellModalOpen] = useState(false);
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   const [messageText, setMessageText] = useState("");
+  const [isSendingMsg, setIsSendingMsg] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false); // New delete state
 
+  // New Listing Form
   const [newListing, setNewListing] = useState({
     title: "",
     price: "",
@@ -121,7 +106,7 @@ export default function CampusMarketplacePage() {
   const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // --- Load Data & Deep Link ---
+  // --- Init ---
   useEffect(() => {
     fetchListings();
   }, []);
@@ -140,52 +125,72 @@ export default function CampusMarketplacePage() {
       const res = await fetch("/api/marketplace");
       if (res.ok) {
         const dbData = await res.json();
-        // Combine Mock Data + DB Data (DB data first)
         setListings([...dbData, ...SAMPLE_LISTINGS]);
       } else {
-        // Fallback to just mock data if API fails
         setListings(SAMPLE_LISTINGS);
       }
     } catch (error) {
-      console.error("Failed to fetch, using mock data only", error);
+      console.error("Fetch error", error);
       setListings(SAMPLE_LISTINGS);
     } finally {
       setIsLoading(false);
     }
   };
 
-  // --- Actions ---
-  const handleShare = (item: Listing) => {
-    const url = `${window.location.origin}/campus-marketplace?item=${item._id}`;
-    navigator.clipboard.writeText(url);
-    toast.success("Link copied to clipboard!");
+  // --- Delete Functionality ---
+  const handleDeleteListing = async (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (!selectedItem) return;
+    
+    // Check if it's a mock item
+    if (selectedItem._id.startsWith("mock-")) {
+      toast.error("Cannot delete demo items.");
+      return;
+    }
+
+    if (!confirm("Are you sure you want to delete this listing?")) return;
+
+    setIsDeleting(true);
+    try {
+      const token = await auth.currentUser?.getIdToken();
+      const res = await fetch("/api/marketplace", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({ id: selectedItem._id })
+      });
+
+      if (res.ok) {
+        toast.success("Listing deleted successfully");
+        setListings(prev => prev.filter(l => l._id !== selectedItem._id));
+        setSelectedItem(null); // Close modal
+      } else {
+        throw new Error("Failed to delete");
+      }
+    } catch (error) {
+      toast.error("Failed to delete listing");
+    } finally {
+      setIsDeleting(false);
+    }
   };
 
+  // --- Messaging ---
   const handleOpenContact = () => {
-    console.log("Attempting to open contact modal..."); // Debug Log
-    
-    // Check Auth
-    const user = auth.currentUser;
-    if (!user) {
-      console.log("User not logged in");
-      toast.error("Login required to message");
+    if (!auth.currentUser) {
+      toast.error("Please login to message");
       return;
     }
-
-    // Check Self-Messaging
-    if (user.uid === selectedItem?.sellerId) {
-      console.log("User is the seller");
-      toast.info("You cannot message yourself (This is your listing!)");
+    if (auth.currentUser.uid === selectedItem?.sellerId) {
+      toast.info("This is your listing!");
       return;
     }
-
-    console.log("Opening modal for:", selectedItem?.sellerName);
     setIsContactModalOpen(true);
   };
 
   const handleSendMessage = async () => {
     if (!messageText.trim() || !selectedItem) return;
-    
     setIsSendingMsg(true);
     try {
       const token = await auth.currentUser?.getIdToken();
@@ -202,24 +207,22 @@ export default function CampusMarketplacePage() {
         })
       });
 
-      if (!res.ok) {
-        // Even if backend fails (e.g. mock user ID), show success for demo
-        console.warn("Backend message failed (expected for mock items). Showing demo success.");
+      if (res.ok) {
+        toast.success(`Message sent to ${selectedItem.sellerName}!`);
+        setIsContactModalOpen(false);
+        setMessageText("");
+      } else {
+        throw new Error("Failed");
       }
-      
-      toast.success(`Message sent to ${selectedItem.sellerName}!`);
-      setIsContactModalOpen(false);
-      setMessageText("");
     } catch (e) {
       console.error(e);
-      // Fallback for demo
-      toast.success(`Message sent to ${selectedItem.sellerName}! (Demo)`);
-      setIsContactModalOpen(false);
+      toast.error("Failed to send message");
     } finally {
       setIsSendingMsg(false);
     }
   };
 
+  // --- Form Handlers (Add Listing) ---
   const handleAddListing = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!selectedImageFile) return toast.warn("Image required");
@@ -254,6 +257,21 @@ export default function CampusMarketplacePage() {
     }
   };
 
+  // Helpers
+  const handleShare = (item: Listing) => {
+    const url = `${window.location.origin}/campus-marketplace?item=${item._id}`;
+    navigator.clipboard.writeText(url);
+    toast.success("Link copied!");
+  };
+
+  const handleImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files?.[0]) {
+      const file = e.target.files[0];
+      setSelectedImageFile(file);
+      setImagePreviewUrl(URL.createObjectURL(file));
+    }
+  };
+
   const filteredListings = listings.filter(item => {
     const matchesSearch = item.title.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesCategory = selectedCategory === "All" || item.category === selectedCategory;
@@ -263,6 +281,7 @@ export default function CampusMarketplacePage() {
   return (
     <AuthGuard>
       <div className="marketplace-container">
+        {/* Header */}
         <header className="marketplace-header">
           <div>
             <h1>Campus<span>Marketplace</span></h1>
@@ -274,7 +293,7 @@ export default function CampusMarketplacePage() {
               <input 
                 type="text" 
                 className="search-input" 
-                placeholder="Search..."
+                placeholder="Search items..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
@@ -285,14 +304,20 @@ export default function CampusMarketplacePage() {
           </div>
         </header>
 
+        {/* Categories */}
         <div className="category-filter">
           {CATEGORIES.map(cat => (
-            <button key={cat} className={`category-chip ${selectedCategory === cat ? 'active' : ''}`} onClick={() => setSelectedCategory(cat)}>
+            <button 
+              key={cat} 
+              className={`category-chip ${selectedCategory === cat ? 'active' : ''}`}
+              onClick={() => setSelectedCategory(cat)}
+            >
               {cat}
             </button>
           ))}
         </div>
 
+        {/* Grid */}
         {isLoading ? (
           <div style={{ display: 'flex', justifyContent: 'center', padding: '4rem' }}>
             <Loader2 className="spinner" size={40} />
@@ -319,21 +344,25 @@ export default function CampusMarketplacePage() {
           </div>
         )}
 
-        {/* DETAIL MODAL */}
+        {/* DETAIL POPUP */}
         {selectedItem && (
           <div className="modal-overlay" style={{ zIndex: 10000 }} onClick={() => setSelectedItem(null)}>
             <div className="detail-modal" onClick={(e) => e.stopPropagation()}>
               <button className="close-modal-btn" onClick={() => setSelectedItem(null)}><X size={20} /></button>
+              
               <div className="modal-left">
                 <img src={selectedItem.image} alt={selectedItem.title} className="modal-img-full" />
               </div>
+
               <div className="modal-right">
                 <h2 className="modal-title">{selectedItem.title}</h2>
                 <div className="modal-price-large">₹{selectedItem.price.toLocaleString()}</div>
+                
                 <div className="modal-tags">
                   <div className="tag-pill"><Tag size={14} /> {selectedItem.category}</div>
                   <div className="tag-pill"><MapPin size={14} /> {selectedItem.location}</div>
                 </div>
+
                 <div className="seller-row">
                   <div className="seller-pic">{selectedItem.sellerName.charAt(0)}</div>
                   <div className="seller-text">
@@ -341,14 +370,28 @@ export default function CampusMarketplacePage() {
                     <p>Joined {selectedItem.sellerJoined}</p>
                   </div>
                 </div>
+
                 <div className="modal-desc">
                   <h4>Description</h4>
                   <p>{selectedItem.description}</p>
                 </div>
+
                 <div className="action-buttons">
-                  <button className="btn-msg" onClick={handleOpenContact}>
-                    <MessageCircle size={18} /> Message Seller
-                  </button>
+                  {/* Delete Button (Only for Owner) */}
+                  {auth.currentUser?.uid === selectedItem.sellerId ? (
+                    <button 
+                      className="btn-delete" 
+                      onClick={handleDeleteListing}
+                      disabled={isDeleting}
+                    >
+                      {isDeleting ? <Loader2 size={18} className="spinner"/> : <><Trash2 size={18}/> Delete</>}
+                    </button>
+                  ) : (
+                    <button className="btn-msg" onClick={handleOpenContact}>
+                      <MessageCircle size={18} /> Message Seller
+                    </button>
+                  )}
+                  
                   <button className="btn-share" onClick={() => handleShare(selectedItem)}>
                     <Share2 size={18} /> Share
                   </button>
@@ -358,31 +401,63 @@ export default function CampusMarketplacePage() {
           </div>
         )}
 
-        {/* MESSAGE MODAL */}
+        {/* BETTER CHAT MODAL */}
         {isContactModalOpen && selectedItem && (
-          <div className="modal-overlay" style={{ zIndex: 10002 }}>
-            <div className="sell-form-container" style={{ maxWidth: '400px', height: 'auto' }} onClick={(e) => e.stopPropagation()}>
-              <div className="form-header">
-                <h2>Contact Seller</h2>
-                <button onClick={() => setIsContactModalOpen(false)} style={{ background: 'none', border: 'none', cursor: 'pointer' }}><X size={20} /></button>
+          <div className="modal-overlay" style={{ zIndex: 10002 }} onClick={() => setIsContactModalOpen(false)}>
+            <div className="sell-form-container" style={{ maxWidth: '450px', height: 'auto', padding: '0' }} onClick={(e) => e.stopPropagation()}>
+              
+              {/* Header */}
+              <div className="form-header" style={{ padding: '20px 24px', borderBottom: '1px solid #f0f0f0', marginBottom: 0 }}>
+                <h2 style={{ fontSize: '1.2rem' }}>Contact Seller</h2>
+                <button onClick={() => setIsContactModalOpen(false)} style={{ background: 'none', border: 'none', cursor: 'pointer' }}>
+                  <X size={20} />
+                </button>
               </div>
-              <div className="form-field">
+
+              {/* Chat Content */}
+              <div style={{ padding: '24px' }}>
+                <div className="chat-header-user">
+                  <div className="chat-avatar">
+                    {selectedItem.sellerName.charAt(0)}
+                  </div>
+                  <div className="chat-user-details">
+                    <h3>{selectedItem.sellerName}</h3>
+                    <span>Replying to: <b>{selectedItem.title}</b></span>
+                  </div>
+                </div>
+
+                <div className="chat-suggestions">
+                  {SUGGESTED_MESSAGES.map((msg, i) => (
+                    <button key={i} className="suggestion-chip" onClick={() => setMessageText(msg)}>
+                      {msg}
+                    </button>
+                  ))}
+                </div>
+
                 <textarea 
-                  className="form-ctrl form-area" 
-                  placeholder={`Hi, is this available?`}
+                  className="chat-textarea" 
+                  placeholder="Write your message..."
+                  rows={4}
                   value={messageText}
                   onChange={(e) => setMessageText(e.target.value)}
                   autoFocus
                 />
+
+                <div className="chat-footer">
+                  <button 
+                    className="btn-send-large" 
+                    onClick={handleSendMessage} 
+                    disabled={isSendingMsg || !messageText.trim()}
+                  >
+                    {isSendingMsg ? <Loader2 size={18} className="spinner"/> : <><Send size={18} /> Send Message</>}
+                  </button>
+                </div>
               </div>
-              <button className="btn-submit" onClick={handleSendMessage} disabled={isSendingMsg}>
-                {isSendingMsg ? "Sending..." : "Send Message"}
-              </button>
             </div>
           </div>
         )}
 
-        {/* SELL MODAL */}
+        {/* Sell Modal (Same as before) */}
         {isSellModalOpen && (
           <div className="modal-overlay" style={{ zIndex: 10000 }} onClick={() => setIsSellModalOpen(false)}>
             <div className="sell-form-container" onClick={(e) => e.stopPropagation()}>
@@ -391,6 +466,7 @@ export default function CampusMarketplacePage() {
                 <button onClick={() => setIsSellModalOpen(false)} className="close-modal-btn" style={{ position: 'static' }}><X size={20} /></button>
               </div>
               <form onSubmit={handleAddListing}>
+                {/* Upload Area */}
                 <div className="upload-area" onClick={() => fileInputRef.current?.click()}>
                   {imagePreviewUrl ? (
                     <>
@@ -405,17 +481,14 @@ export default function CampusMarketplacePage() {
                       <span>Upload Photo</span>
                     </>
                   )}
-                  <input type="file" hidden ref={fileInputRef} accept="image/*" onChange={(e) => {
-                    if (e.target.files?.[0]) {
-                      setSelectedImageFile(e.target.files[0]);
-                      setImagePreviewUrl(URL.createObjectURL(e.target.files[0]));
-                    }
-                  }} />
+                  <input type="file" hidden ref={fileInputRef} accept="image/*" onChange={handleImageSelect} />
                 </div>
+
                 <div className="form-field">
                   <label>Title</label>
                   <input type="text" className="form-ctrl" value={newListing.title} onChange={e => setNewListing({...newListing, title: e.target.value})} required />
                 </div>
+
                 <div className="form-grid-2">
                   <div className="form-field">
                     <label>Price</label>
@@ -428,6 +501,7 @@ export default function CampusMarketplacePage() {
                     </select>
                   </div>
                 </div>
+
                 <div className="form-field">
                   <label>Location</label>
                   <select className="form-ctrl" value={newListing.location} onChange={e => setNewListing({...newListing, location: e.target.value})}>
@@ -435,10 +509,12 @@ export default function CampusMarketplacePage() {
                     <option value="Jaypee Sector 128 Campus">Jaypee Sector 128 Campus</option>
                   </select>
                 </div>
+
                 <div className="form-field">
                   <label>Description</label>
                   <textarea className="form-ctrl form-area" value={newListing.description} onChange={e => setNewListing({...newListing, description: e.target.value})} required />
                 </div>
+
                 <button type="submit" className="btn-submit" disabled={isSubmitting}>
                   {isSubmitting ? "Posting..." : "Post Listing"}
                 </button>
@@ -447,6 +523,6 @@ export default function CampusMarketplacePage() {
           </div>
         )}
       </div>
-    </AuthGuard>  
+    </AuthGuard>
   );
 }

@@ -510,6 +510,144 @@
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
+/* ... existing styles ... */
+
+/* Delete Button Styles */
+.btn-delete {
+  background: #fff;
+  border: 1px solid #ff4d4d;
+  color: #ff4d4d;
+  padding: 18px;
+  border-radius: 14px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s;
+  width: 140px;
+}
+
+.btn-delete:hover {
+  background: #fff0f0;
+}
+
+/* Enhanced Chat Modal */
+.chat-modal-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.chat-header-user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #f0f0f0;
+  margin-bottom: 16px;
+}
+
+.chat-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #d4a23a;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+.chat-user-details h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #1a1a1a;
+}
+
+.chat-user-details span {
+  font-size: 0.85rem;
+  color: #888;
+}
+
+.chat-suggestions {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.suggestion-chip {
+  background: #f5f5f5;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  color: #555;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s;
+}
+
+.suggestion-chip:hover {
+  background: #e5e5e5;
+  color: #1a1a1a;
+}
+
+.chat-textarea {
+  flex: 1;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  padding: 16px;
+  font-size: 1rem;
+  resize: none;
+  background: #fcfcfc;
+  outline: none;
+  font-family: inherit;
+  transition: border-color 0.2s;
+}
+
+.chat-textarea:focus {
+  border-color: #d4a23a;
+  background: white;
+}
+
+.chat-footer {
+  margin-top: 16px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn-send-large {
+  background: #1a1a1a;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: opacity 0.2s;
+}
+
+.btn-send-large:hover {
+  opacity: 0.9;
+}
+
+.btn-send-large:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+
 .btn-submit:hover { opacity: 0.9; transform: translateY(-1px); }
 
 /* --- Responsive --- */

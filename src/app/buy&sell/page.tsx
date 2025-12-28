@@ -467,7 +467,6 @@ export default function CampusMarketplacePage() {
                 </button>
               </div>
 
-              {/* Chat Content */}
               <div style={{ padding: '24px' }}>
                 <div className="chat-header-user">
                   <div className="chat-avatar">
@@ -510,7 +509,6 @@ export default function CampusMarketplacePage() {
           </div>
         )}
 
-        {/* Sell Modal (Same as before) */}
         {isSellModalOpen && (
           <div className="modal-overlay" style={{ zIndex: 10000 }} onClick={() => setIsSellModalOpen(false)}>
             <div className="sell-form-container" onClick={(e) => e.stopPropagation()}>
@@ -519,7 +517,7 @@ export default function CampusMarketplacePage() {
                 <button onClick={() => setIsSellModalOpen(false)} className="close-modal-btn" style={{ position: 'static' }}><X size={20} /></button>
               </div>
               <form onSubmit={handleAddListing}>
-                {/* Upload Area */}
+
                 <div className="upload-area" onClick={() => fileInputRef.current?.click()}>
                   {imagePreviewUrl ? (
                     <>

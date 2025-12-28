@@ -27,7 +27,14 @@ from qdrant_client.models import (
     MatchValue,
 )
 
-import google.generativeai as genai
+genai = None
+try:
+    import google.generativeai as genai
+except Exception:
+    try:
+        import generativeai as genai
+    except Exception:
+        genai = None
 
 
 app = FastAPI(title="RAG Backend API", version="2.0.0")
@@ -49,7 +56,16 @@ qdrant_client = QdrantClient(
     api_key=QDRANT_API_KEY,
 )
 
-gemini_client = genai.Client(api_key=GOOGLE_API_KEY)
+if genai is None:
+    raise ImportError("google-generativeai (or generativeai) is required. Install google-generativeai and ensure it's available in the environment.")
+
+# Initialize client compatibly across different package entrypoints
+if hasattr(genai, "Client"):
+    gemini_client = genai.Client(api_key=GOOGLE_API_KEY)
+else:
+    if hasattr(genai, "configure"):
+        genai.configure(api_key=GOOGLE_API_KEY)
+    gemini_client = genai
 
 COLLECTION_NAME = "rag_documents"
 
@@ -99,11 +115,21 @@ def initialize_collection():
     ensure_payload_indexes()
 
 def get_embedding(text: str) -> List[float]:
-    result = gemini_client.models.embed_content(
-        model="gemini-embedding-001",
-        contents=text,
-    )
-    return result.embeddings[0].values
+    # Support different client API shapes: try `models.embed_content` first,
+    # otherwise fall back to `embeddings.create` style.
+    try:
+        result = gemini_client.models.embed_content(
+            model="gemini-embedding-001",
+            contents=text,
+        )
+        return result.embeddings[0].values
+    except Exception:
+        # fallback for genai.embeddings.create or similar
+        if hasattr(genai, "embeddings"):
+            res = genai.embeddings.create(model="gemini-embedding-001", input=text)
+            # response shape: data[0].embedding
+            return res.data[0].embedding
+        raise
 
 def store_documents_in_qdrant(documents, source_type: str, source_name: str):
     chunks = text_splitter.split_documents(documents)

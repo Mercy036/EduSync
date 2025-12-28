@@ -85,7 +85,7 @@ const SAMPLE_LISTINGS: Listing[] = [
     category: "Clothing",
     location: "Jaypee Sector 62 Campus",
     description: "White lab coat size L. Includes safety goggles. Washed and ironed. No stains.",
-    image: "https://imgs.search.brave.com/DYYzw1z_u9eq1BiNImvSLBQv-B0Kv6FGDZgAUYxbdqE/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly81Lmlt/aW1nLmNvbS9kYXRh/NS9TRUxMRVIvRGVm/YXVsdC8yMDI0Lzkv/NDUzMTEzODExL0FU/L0dTL09RLzg3NzE2/ODkzL3ByZXN0aWdl/LWVsZWN0cmljLWtl/dHRsZS01MDB4NTAw/LmpwZw",
+    image: "https://imgs.search.brave.com/jcOl-bb-yM1EKDyC9IN8OCPAiNp2TzsPR6zke3G4PGU/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9tLm1l/ZGlhLWFtYXpvbi5j/b20vaW1hZ2VzL0kv/NjE5a2owSWo3Q0wu/anBn",
     sellerName: "Ananya Roy",
     sellerId: "mock-seller-4",
     sellerJoined: "2024",

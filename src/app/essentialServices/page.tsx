@@ -254,10 +254,6 @@ export default function CampusEssentials() {
                                 <span className="stat-val">2 / 4</span>
                             </div>
                             <div className="stat-row">
-                                <span className="stat-label">Print Balance</span>
-                                <span className="stat-val" style={{color: '#15803d'}}>₹120.00</span>
-                            </div>
-                            <div className="stat-row">
                                 <span className="stat-label">Pending Fines</span>
                                 <span className="stat-val">₹0</span>
                             </div>

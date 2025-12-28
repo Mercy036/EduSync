@@ -1,15 +1,15 @@
-import "./essentialLayout.css";
+import "./essential.css";
 import SideBar from "@/src/components/SideBar";
 
-export default function DashboardLayout({
+export default function EssentialsLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <div className="essential-layout">
+    <div style={{ display: "flex", minHeight: "100vh", backgroundColor: "#ffffff" }}>
       <SideBar />
-      <main className="essential-main">
+      <main style={{ flex: 1, marginLeft: "100px", padding: "0", boxSizing: "border-box" }}>
         {children}
       </main>
     </div>

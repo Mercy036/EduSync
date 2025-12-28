@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import dbConnect from "@/src/lib/dbConnect";
-import Message from "@/src/models/Message";
+import Message from "@/src/model/Message";
 import { firebaseAdmin } from "@/src/lib/firebaseAdmin";
 
 export async function POST(req: Request) {

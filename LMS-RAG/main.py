@@ -27,16 +27,13 @@ from qdrant_client.models import (
     MatchValue,
 )
 
-import google.generativeai as genai
+from google import genai
 
 app = FastAPI(title="RAG Backend API", version="2.0.0")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "https://edu-sync-ashen.vercel.app",
-        "http://localhost:3000",
-    ],
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -51,7 +48,7 @@ qdrant_client = QdrantClient(
     api_key=QDRANT_API_KEY,
 )
 
-genai.configure(api_key=GOOGLE_API_KEY)
+gemini_client = genai.Client(api_key=GOOGLE_API_KEY)
 
 COLLECTION_NAME = "rag_documents"
 
@@ -93,7 +90,7 @@ def initialize_collection():
         qdrant_client.create_collection(
             collection_name=COLLECTION_NAME,
             vectors_config=VectorParams(
-                size=768,
+                size=3072,
                 distance=Distance.COSINE,
             ),
         )
@@ -101,15 +98,11 @@ def initialize_collection():
     ensure_payload_indexes()
 
 def get_embedding(text: str) -> List[float]:
-    try:
-        result = genai.embed_content(
-            model="models/embedding-001",
-            content=text,
-            task_type="retrieval_document"
-        )
-        return result['embedding']
-    except Exception as e:
-        raise RuntimeError(f"Gemini embedding failed: {str(e)}")
+    result = gemini_client.models.embed_content(
+        model="gemini-embedding-001",
+        contents=text,
+    )
+    return result.embeddings[0].values
 
 def store_documents_in_qdrant(documents, source_type: str, source_name: str):
     chunks = text_splitter.split_documents(documents)
@@ -164,7 +157,7 @@ def search_similar_documents(query: str, top_k: int, source_type: Optional[str])
 def generate_answer(question: str, context_docs):
     llm = ChatGroq(
         groq_api_key=GROQ_API_KEY,
-        model_name="llama-3.3-70b-versatile",
+        model_name="groq/compound-mini",
         temperature=0.2,
     )
 
@@ -237,8 +230,7 @@ async def load_pdf(file: UploadFile = File(...)):
         return {"chunks_added": chunks}
 
     finally:
-        if os.path.exists(path):
-            os.remove(path)
+        Path(path).unlink(missing_ok=True)
 
 @app.post("/query", response_model=Response)
 async def query(query_input: QueryInput):

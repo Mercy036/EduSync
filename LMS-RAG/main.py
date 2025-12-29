@@ -27,15 +27,7 @@ from qdrant_client.models import (
     MatchValue,
 )
 
-genai = None
-try:
-    import google.generativeai as genai
-except Exception:
-    try:
-        import generativeai as genai
-    except Exception:
-        genai = None
-
+import google.generativeai as genai
 
 app = FastAPI(title="RAG Backend API", version="2.0.0")
 
@@ -50,7 +42,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
 GROQ_API_KEY = os.getenv("GROQ_API_KEY", "")
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY", "")
 QDRANT_API_KEY = os.getenv("qdrantclientapikey")
@@ -60,16 +51,7 @@ qdrant_client = QdrantClient(
     api_key=QDRANT_API_KEY,
 )
 
-if genai is None:
-    raise ImportError("google-generativeai (or generativeai) is required. Install google-generativeai and ensure it's available in the environment.")
-
-# Initialize client compatibly across different package entrypoints
-if hasattr(genai, "Client"):
-    gemini_client = genai.Client(api_key=GOOGLE_API_KEY)
-else:
-    if hasattr(genai, "configure"):
-        genai.configure(api_key=GOOGLE_API_KEY)
-    gemini_client = genai
+genai.configure(api_key=GOOGLE_API_KEY)
 
 COLLECTION_NAME = "rag_documents"
 
@@ -119,32 +101,15 @@ def initialize_collection():
     ensure_payload_indexes()
 
 def get_embedding(text: str) -> List[float]:
-    errs = []
     try:
-        if gemini_client and hasattr(gemini_client, "models"):
-            result = gemini_client.models.embed_content(
-                model="gemini-embedding-001",
-                contents=text,
-            )
-            return result.embeddings[0].values
+        result = genai.embed_content(
+            model="models/embedding-001",
+            content=text,
+            task_type="retrieval_document"
+        )
+        return result['embedding']
     except Exception as e:
-        errs.append(e)
-    try:
-        if genai and hasattr(genai, "embeddings") and hasattr(genai.embeddings, "create"):
-            res = genai.embeddings.create(model="gemini-embedding-001", input=text)
-            return res.data[0].embedding
-    except Exception as e:
-        errs.append(e)
-    try:
-        if genai and hasattr(genai, "create_embedding"):
-            res = genai.create_embedding(model="gemini-embedding-001", input=text)
-            if isinstance(res, dict) and "data" in res and len(res["data"]) > 0:
-                return res["data"][0].get("embedding") or res["data"][0].get("vector")
-            if hasattr(res, "data") and len(res.data) > 0:
-                return getattr(res.data[0], "embedding", None) or getattr(res.data[0], "vector", None)
-    except Exception as e:
-        errs.append(e)
-    raise RuntimeError(f"Unable to obtain embeddings from GenAI client. Tried multiple client shapes; errors: {errs}")
+        raise RuntimeError(f"Gemini embedding failed: {str(e)}")
 
 def store_documents_in_qdrant(documents, source_type: str, source_name: str):
     chunks = text_splitter.split_documents(documents)
@@ -199,7 +164,7 @@ def search_similar_documents(query: str, top_k: int, source_type: Optional[str])
 def generate_answer(question: str, context_docs):
     llm = ChatGroq(
         groq_api_key=GROQ_API_KEY,
-        model_name="groq/compound-mini",
+        model_name="llama-3.3-70b-versatile",
         temperature=0.2,
     )
 
@@ -272,7 +237,8 @@ async def load_pdf(file: UploadFile = File(...)):
         return {"chunks_added": chunks}
 
     finally:
-        Path(path).unlink(missing_ok=True)
+        if os.path.exists(path):
+            os.remove(path)
 
 @app.post("/query", response_model=Response)
 async def query(query_input: QueryInput):

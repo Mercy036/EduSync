@@ -20,19 +20,25 @@ body {
   color: var(--text-primary);
   margin: 0;
 }
+
 .dashboard-layout {
   display: flex;
   min-height: 100vh;
   background-color: var(--bg-main);
+  position: relative;
+  overflow-x: hidden; /* Prevents horizontal scroll on small screens */
 }
 
 .dashboard-main {
-  flex: 1;
-  margin-left:  -150px;
-  padding: 2.5rem 1rem;
+  flex: 1; /* Takes up all remaining space automatically */
+  padding: 1rem;
   box-sizing: border-box;
-}
-.sidebar.collapsed + .dashboard-main {
-  margin-left: 76px;
+  width: 100%;
+  min-width: 0; /* Important: Prevents flex child from overflowing */
+  transition: all 0.25s ease;
 }
 
+/* Since the sidebar is sticky and part of the flex flow, 
+   we do NOT need manual margins for collapsed states.
+   The flex: 1 on .dashboard-main handles resizing automatically.
+*/

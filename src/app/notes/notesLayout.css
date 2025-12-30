@@ -20,7 +20,7 @@ body {
   min-height: 100%;
   margin: 0;
   padding: 0;
-  overflow-x: hidden; /* Prevent horizontal scroll */
+  overflow-x: hidden;
 }
 
 body::before {
@@ -44,15 +44,10 @@ body::before {
 }
 
 .notes-main {
-  flex: 1; /* Takes up remaining space naturally */
-  width: 100%; /* Ensure it fills width */
-  min-width: 0; /* Important: Prevents flex child from overflowing */
+  flex: 1; 
+  width: 100%; 
+  min-width: 0; 
   padding: 2rem;
   box-sizing: border-box;
   transition: all 0.25s ease;
 }
-
-/* Since we use flexbox, we don't need manual margins for the sidebar state.
-   The sidebar component likely handles its own width, and this .notes-main
-   will automatically resize to fit.
-*/

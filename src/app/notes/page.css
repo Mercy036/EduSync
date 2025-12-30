@@ -1,10 +1,8 @@
 .notes-page {
-  /* Use max-width but ensure it doesn't overflow smaller screens */
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
   box-sizing: border-box;
-  /* Removed fixed padding here, handled by layout or queries below */
 }
 
 .notes-header h1 {
@@ -123,7 +121,7 @@
   border-radius: 16px;
   padding: 1rem 1.25rem;
   min-height: 64px;
-  flex-wrap: wrap; /* Allow wrapping on small screens */
+  flex-wrap: wrap;
   gap: 1rem;
 }
 
@@ -275,14 +273,9 @@
   color: #9b72cb;
 }
 
-
-/* --- Media Queries for Responsive Design --- */
-
-/* 1. Laptops / Standard Desktops (approx 1200px - 1400px) */
-/* Reduces padding to fit content better when zoom is 100% */
 @media (max-width: 1400px) {
   .notes-page {
-    padding: 0; /* Reset internal padding if parent handles it */
+    padding: 0; 
   }
   
   .notes-bento {
@@ -290,15 +283,13 @@
   }
 }
 
-/* 2. Tablets / Small Laptops (max-width: 1100px) */
-/* Stack the bento grid vertically */
 @media (max-width: 1100px) {
   .notes-bento {
-    grid-template-columns: 1fr; /* Single column */
+    grid-template-columns: 1fr; 
   }
   
   .notes-bento-right {
-    order: 2; /* Put history below upload */
+    order: 2; 
   }
 
   .notes-cards,
@@ -307,7 +298,6 @@
   }
 }
 
-/* 3. Mobile (max-width: 768px) */
 @media (max-width: 768px) {
   .notes-header h1 {
     font-size: 2.25rem;
@@ -315,7 +305,7 @@
   
   .notes-actions,
   .notes-cards {
-    grid-template-columns: 1fr; /* Stack cards vertically */
+    grid-template-columns: 1fr; 
   }
 
   .notes-toolbar {
@@ -340,6 +330,6 @@
   }
 
   .notes-pdf-viewer {
-    height: 50vh; /* Smaller height on mobile */
+    height: 50vh;
   }
 }

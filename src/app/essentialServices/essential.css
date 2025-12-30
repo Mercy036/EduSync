@@ -1,9 +1,10 @@
 .ce-page-container {
-    padding: 2.5rem 3.5rem;
-    max-width: 1200px;
+    padding: 2.5rem 3rem;
+    max-width: 1400px; 
     margin: 0 auto;
     font-family: inherit;
     box-sizing: border-box;
+    width: 100%;
 }
 
 .ce-header h1 {
@@ -12,6 +13,7 @@
     margin: 0;
     color: #1a1a1a;
     letter-spacing: -0.5px;
+    line-height: 1.1;
 }
 
 .ce-header h1 span {
@@ -29,6 +31,7 @@
     display: flex;
     gap: 1rem;
     margin: 2.5rem 0;
+    flex-wrap: wrap;
 }
 
 .ce-tab-btn {
@@ -127,6 +130,7 @@
     background: #f9f9f9;
     transition: all 0.2s;
     color: #333;
+    min-width: 0;
 }
 
 .ce-search-bar:focus {
@@ -259,6 +263,7 @@
     font-weight: 500;
 }
 
+/* Print Section */
 .print-workspace {
     display: flex;
     flex-direction: column;
@@ -579,6 +584,7 @@
 
 .ce-gold-text { color: #d4a373 !important; }
 
+/* Modal */
 .modal-overlay {
     position: fixed;
     inset: 0;
@@ -604,6 +610,7 @@
     flex-direction: column;
     align-items: center;
     position: relative;
+    box-sizing: border-box;
 }
 
 .payment-header {
@@ -740,16 +747,47 @@
     to { opacity: 1; transform: scale(1) translateY(0); }
 }
 
-@media (max-width: 900px) {
+
+@media (max-width: 1400px) {
+    .ce-page-container {
+        padding: 2rem;
+    }
+    .ce-bento-layout {
+        gap: 1.5rem;
+    }
+}
+
+@media (max-width: 1100px) {
     .ce-bento-layout {
         grid-template-columns: 1fr;
     }
+    
+    
+    .ce-card {
+        padding: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
     .ce-page-container {
         padding: 1.5rem;
+        padding-bottom: 5rem;
     }
     .ce-header h1 {
         font-size: 2rem;
     }
+    .lib-book-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+    .lib-book-meta {
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
     .payment-modal {
         max-width: 90%;
         padding: 2rem;
@@ -759,4 +797,3 @@
         height: 220px;
     }
 }
-

@@ -4,11 +4,9 @@
 
 .shelf-tabs {
   margin-bottom: 2rem;
-  flex-wrap: wrap; /* Allows tabs to wrap on mobile */
+  flex-wrap: wrap; 
   height: auto;
 }
-
-/* --- Header & Layout --- */
 
 .shelf-dashboard {
   padding: 1rem 0;
@@ -55,9 +53,6 @@
   margin: 0;
 }
 
-/* --- Buttons Styling --- */
-
-/* Wrapper to target the Upload button inside the component */
 .shelf-upload-wrapper button {
   background-color: #1a1a1a;
   color: #ffffff;
@@ -102,9 +97,8 @@
   cursor: pointer;
 }
 
-/* Download Button Style */
 .shelf-btn.download {
-  background-color: #f0fdf4; /* Light green tint */
+  background-color: #f0fdf4; 
   color: #166534;
   border-color: #bbf7d0;
 }
@@ -115,9 +109,8 @@
   box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
-/* Delete Button Style */
 .shelf-btn.delete {
-  background-color: #fef2f2; /* Light red tint */
+  background-color: #fef2f2;
   color: #991b1b;
   border-color: #fecaca;
 }
@@ -130,7 +123,6 @@
   box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
-/* --- Table & Folder --- */
 
 .shelf-folder {
   border: 1px solid var(--border);
@@ -138,7 +130,7 @@
   background: #ffffff;
   padding: 1.5rem;
   box-shadow: 0 4px 12px rgba(0,0,0,0.02);
-  overflow-x: auto; /* Handles table overflow on small screens */
+  overflow-x: auto; 
 }
 
 .shelf-empty-box {
@@ -164,12 +156,10 @@
   align-items: center;
 }
 
-/* --- Media Queries --- */
 
-/* 1. Laptop / Desktop Fix (100% Zoom) */
 @media (max-width: 1400px) {
   .shelf-main {
-    padding: 2rem; /* Reduce padding */
+    padding: 2rem; 
   }
   
   .shelf-dashboard-header h1 {
@@ -177,7 +167,6 @@
   }
 }
 
-/* 2. Tablet (max-width: 1024px) */
 @media (max-width: 1024px) {
   .shelf-header {
     flex-direction: row;
@@ -189,11 +178,10 @@
   }
 }
 
-/* 3. Mobile (max-width: 768px) */
 @media (max-width: 768px) {
   .shelf-main {
     padding: 1.5rem;
-    padding-bottom: 5rem; /* Space for bottom nav */
+    padding-bottom: 5rem; 
   }
 
   .shelf-dashboard-header {
@@ -204,7 +192,6 @@
     font-size: 2rem;
   }
   
-  /* Stack Header Actions */
   .shelf-header {
     flex-direction: column;
     align-items: flex-start;
@@ -216,7 +203,6 @@
     justify-content: center;
   }
 
-  /* Table Adjustments */
   .shelf-file {
     font-size: 0.9rem;
   }

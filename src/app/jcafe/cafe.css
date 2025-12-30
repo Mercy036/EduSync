@@ -8,7 +8,6 @@
     box-sizing: border-box;
 }
 
-/* When the cart is open, push content left */
 .jcafe-container.is-shifted {
     padding-right: 420px; 
 }
@@ -58,17 +57,14 @@
     font-size: 1.05rem;
 }
 
-/* --- Main Layout Grid --- */
 .jcafe-content {
     display: grid;
-    /* Adjusted: Fixed width for menu is slightly smaller to fit laptops better */
     grid-template-columns: 1fr 360px; 
     gap: 2rem;
     margin-top: 3rem;
     align-items: start;
 }
 
-/* --- Left Column Components --- */
 .jcafe-left-col {
     display: flex;
     flex-direction: column;
@@ -151,14 +147,12 @@
     margin-top: 4px;
 }
 
-/* --- Menu List (Right Column) --- */
 .jcafe-menu-card {
     background: #fff;
     border: 1px solid #f0f0f0;
     border-radius: 24px;
     padding: 2rem;
     box-shadow: 0 4px 20px rgba(0,0,0,0.02);
-    /* Make the menu sticky so it stays visible while scrolling */
     position: sticky;
     top: 2rem;
 }
@@ -291,12 +285,6 @@
 
 .jcafe-checkout-btn:disabled { opacity: 0.7; cursor: not-allowed; }
 
-/* =========================================
-   MEDIA QUERIES 
-   ========================================= */
-
-/* 1. Laptop / Desktop Tightness (Max Width 1300px) */
-/* Prevents horizontal scroll and overlapping when zoom is 100% */
 @media (max-width: 1300px) {
     .jcafe-container {
         padding: 2rem;
@@ -306,18 +294,15 @@
     }
 }
 
-/* 2. Tablet / Small Laptop (Max Width 1100px) */
-/* Switch from 2-column [Main | Menu] to Vertical Stack */
 @media (max-width: 1100px) {
     .jcafe-content {
-        grid-template-columns: 1fr; /* Stack vertically */
+        grid-template-columns: 1fr; 
     }
 
     .jcafe-menu-card {
-        position: static; /* Remove sticky */
+        position: static; 
     }
 
-    /* Re-arrange left column to be horizontal since we have width now */
     .jcafe-left-col {
         display: grid;
         grid-template-columns: 1.2fr 1fr;
@@ -330,7 +315,6 @@
         gap: 1rem;
     }
 
-    /* Adjust cart shift amount since screen is smaller */
     .jcafe-container.is-shifted {
         padding-right: 380px; 
     }

@@ -15,7 +15,7 @@ export default function SignOutButton({ collapsed = false }: SignOutButtonProps)
 
   const handleSignOut = async () => {
     await signOut(auth)
-    router.replace("/home")
+    router.replace("/")
   }
 
   return (

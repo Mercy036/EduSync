@@ -17,7 +17,7 @@ export default function AuthGuard({
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (user) => {
       if (!user) {
-        router.replace("/home")
+        router.replace("/")
       } else {
         setLoading(false)
       }

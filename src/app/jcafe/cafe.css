@@ -1,22 +1,23 @@
 .jcafe-container {
-    padding: 3rem 4rem;
+    padding: 2.5rem 3rem;
     max-width: 1400px;
-    /* Add transition for smooth shifting */
+    margin: 0 auto;
     transition: padding-right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     width: 100%;
     box-sizing: border-box;
 }
 
-/* When the cart is open, add padding to push content left */
 .jcafe-container.is-shifted {
-    padding-right: 420px; /* Matches sidebar width + extra breathing room */
+    padding-right: 420px; 
 }
 
 .jcafe-header {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 1rem;
 }
 
 .cart-trigger {
@@ -31,6 +32,7 @@
     font-weight: 600;
     cursor: pointer;
     transition: transform 0.2s;
+    white-space: nowrap;
 }
 
 .cart-trigger:hover {
@@ -41,6 +43,7 @@
     font-size: 3rem;
     font-weight: 800;
     margin: 0;
+    line-height: 1;
 }
 
 .jcafe-header h1 span {
@@ -50,21 +53,15 @@
 .jcafe-header p {
     color: #666;
     margin-top: 0.5rem;
+    font-size: 1.05rem;
 }
 
 .jcafe-content {
     display: grid;
-    /* Changed to auto-fit to handle the squeeze better */
-    grid-template-columns: 1fr 400px; 
+    grid-template-columns: 1fr 360px; 
     gap: 2rem;
-    margin-top: 3.5rem;
+    margin-top: 3rem;
     align-items: start;
-    transition: all 0.4s ease;
-}
-
-/* When shifted, we might want the grid to adjust if screen is small */
-.jcafe-container.is-shifted .jcafe-content {
-    gap: 1.5rem;
 }
 
 .jcafe-left-col {
@@ -89,7 +86,15 @@
 .jcafe-featured {
     background: linear-gradient(145deg, #fffcf5 0%, #ffffff 100%);
     border: 1px solid #faedcd;
-    padding: 2.5rem;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.jcafe-featured h3 {
+    margin: 0.75rem 0 0.5rem 0;
+    font-size: 1.5rem;
 }
 
 .jcafe-badge {
@@ -99,6 +104,7 @@
     border-radius: 50px;
     font-size: 0.75rem;
     font-weight: 700;
+    width: fit-content;
 }
 
 .jcafe-primary-btn {
@@ -110,6 +116,7 @@
     border-radius: 12px;
     font-weight: 600;
     cursor: pointer;
+    width: 100%;
 }
 
 .jcafe-bento-grid {
@@ -119,15 +126,15 @@
 }
 
 .jcafe-label {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     color: #999;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    font-weight: 700;
     margin: 0 0 8px 0;
 }
 
 .jcafe-value {
-    font-size: 1.1rem;
+    font-size: 1.25rem;
     font-weight: 700;
     margin: 0;
 }
@@ -145,10 +152,12 @@
     border-radius: 24px;
     padding: 2rem;
     box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+    position: sticky;
+    top: 2rem;
 }
 
 .jcafe-menu-top {
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
     border-bottom: 1px solid #f5f5f5;
     padding-bottom: 1rem;
 }
@@ -159,21 +168,26 @@
 .jcafe-list {
     list-style: none;
     padding: 0;
+    margin: 0;
 }
 
 .jcafe-list-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem;
-    border-radius: 15px;
+    padding: 1rem 0.5rem;
+    border-radius: 12px;
     cursor: pointer;
-    margin-bottom: 0.5rem;
+    border-bottom: 1px dashed #f0f0f0;
     transition: background 0.2s;
 }
 
+.jcafe-list-item:last-child { border-bottom: none; }
+
 .jcafe-list-item:hover {
     background: #fafafa;
+    padding-left: 1rem;
+    padding-right: 1rem;
 }
 
 .jcafe-item-info {
@@ -182,30 +196,14 @@
     gap: 4px;
 }
 
-.jcafe-item-name {
-    font-weight: 600;
-    color: #333;
-}
+.jcafe-item-name { font-weight: 600; color: #333; }
+.jcafe-item-tag { font-size: 0.7rem; color: #999; text-transform: uppercase; font-weight: 700; }
+.jcafe-item-price { font-weight: 700; font-size: 0.95rem; background: #f8f8f8; padding: 6px 12px; border-radius: 8px; }
 
-.jcafe-item-tag {
-    font-size: 0.7rem;
-    color: #999;
-    text-transform: uppercase;
-    font-weight: 700;
-}
-
-.jcafe-item-price {
-    font-weight: 700;
-    font-size: 1rem;
-    background: #f8f8f8;
-    padding: 6px 12px;
-    border-radius: 10px;
-}
-
-/* Sidebar Styles */
+/* --- Sidebar Cart --- */
 .jcafe-sidebar {
     position: fixed;
-    right: -420px; /* Matches width */
+    right: -420px;
     top: 0;
     width: 400px;
     height: 100vh;
@@ -229,25 +227,9 @@
     margin-bottom: 2rem;
 }
 
-.jcafe-sidebar-header h3 {
-    margin: 0;
-    font-size: 1.5rem;
-}
-
-.close-btn, .remove-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 5px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 0.2s;
-}
-
-.close-btn:hover, .remove-btn:hover {
-    background: #f5f5f5;
+.jcafe-sidebar-items {
+    flex: 1;
+    overflow-y: auto;
 }
 
 .jcafe-cart-row {
@@ -259,53 +241,115 @@
     border-bottom: 1px solid #f8f8f8;
 }
 
-.cart-item-info {
+.close-btn, .remove-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 50%;
     display: flex;
     align-items: center;
-    gap: 10px;
-    font-weight: 600;
-}
-
-.qty-badge {
-    background: #f3f4f6;
-    font-size: 0.8rem;
-    padding: 2px 8px;
-    border-radius: 6px;
+    justify-content: center;
     color: #666;
+    transition: background 0.2s;
 }
 
-.cart-item-right {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
+.close-btn:hover, .remove-btn:hover { background: #f5f5f5; color: #000; }
 
 .jcafe-sidebar-footer {
     margin-top: auto;
-    padding-top: 2rem;
+    padding-top: 1.5rem;
     border-top: 1px dashed #e5e5e5;
 }
 
 .jcafe-total-row {
     display: flex;
     justify-content: space-between;
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     font-weight: 800;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
 }
 
 .jcafe-checkout-btn {
     width: 100%;
-    padding: 1.2rem;
+    padding: 1rem;
     background: #d4a373;
     color: white;
     border: none;
-    border-radius: 16px;
+    border-radius: 12px;
     font-weight: 700;
     cursor: pointer;
     transition: opacity 0.2s;
 }
 
-.jcafe-checkout-btn:hover {
-    opacity: 0.9;
+.jcafe-checkout-btn:disabled { opacity: 0.7; cursor: not-allowed; }
+
+@media (max-width: 1300px) {
+    .jcafe-container {
+        padding: 2rem;
+    }
+    .jcafe-content {
+        gap: 1.5rem;
+    }
+}
+
+@media (max-width: 1100px) {
+    .jcafe-content {
+        grid-template-columns: 1fr; 
+    }
+
+    .jcafe-menu-card {
+        position: static; 
+    }
+
+    .jcafe-left-col {
+        display: grid;
+        grid-template-columns: 1.2fr 1fr;
+    }
+    
+    .jcafe-bento-grid {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    .jcafe-container.is-shifted {
+        padding-right: 380px; 
+    }
+    
+    .jcafe-sidebar {
+        width: 360px;
+    }
+}
+
+@media (max-width: 768px) {
+    .jcafe-container {
+        padding: 1.5rem;
+        padding-bottom: 5rem;
+    }
+
+    .jcafe-header h1 {
+        font-size: 2.5rem;
+    }
+    .jcafe-left-col {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .jcafe-bento-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+
+    .jcafe-container.is-shifted {
+        padding-right: 1.5rem;
+        filter: blur(2px);
+    }
+
+    .jcafe-sidebar {
+        width: 100%; 
+        right: -100%;
+    }
 }

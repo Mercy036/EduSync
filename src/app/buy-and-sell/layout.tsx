@@ -7,9 +7,15 @@ export default function MarketplaceLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div style={{ display: "flex", minHeight: "100vh", backgroundColor: "#ffffff" }}>
+    <div style={{ display: "flex", minHeight: "100vh", backgroundColor: "#ffffff", overflowX: "hidden" }}>
       <SideBar />
-      <main style={{ flex: 1, marginLeft: "140px", padding: "2.5rem 3rem", boxSizing: "border-box" }}>
+      <main style={{ 
+        flex: 1, 
+        padding: "2.5rem 3rem", 
+        boxSizing: "border-box",
+        minWidth: 0, /* Prevents flex overflow */
+        width: "100%" 
+      }}>
         {children}
       </main>
     </div>

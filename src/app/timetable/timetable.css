@@ -1,9 +1,10 @@
-/* ... existing styles ... */
 
 .timetable-container {
   max-width: 1200px;
   margin: 0 auto;
   padding-bottom: 4rem;
+  width: 100%; 
+  box-sizing: border-box;
 }
 
 .timetable-header {
@@ -117,6 +118,7 @@
 
 .subject-card {
   display: grid;
+  /* Optimized grid for desktop */
   grid-template-columns: 2fr 1.2fr 1.2fr 0.8fr;
   gap: 1.5rem;
   align-items: end;
@@ -152,6 +154,7 @@
   flex-direction: column;
   gap: 6px;
   position: relative;
+  min-width: 0; /* Prevents overflow in flex/grid items */
 }
 
 .field-wrapper label {
@@ -199,6 +202,13 @@
   cursor: pointer;
   transition: all 0.2s;
   user-select: none;
+  white-space: nowrap; /* Prevent text wrap */
+  overflow: hidden;
+}
+
+.custom-select-trigger span {
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .custom-select-trigger:hover {
@@ -409,7 +419,6 @@
   to { transform: rotate(360deg); }
 }
 
-/* Reset Button Style */
 .reset-btn {
   background: white;
   color: #1a1a1a;
@@ -431,18 +440,67 @@
   color: #d4a23a;
 }
 
-@media (max-width: 1100px) {
+@media (max-width: 1300px) {
+  .subject-card {
+    grid-template-columns: 1.5fr 1fr 1fr 0.6fr; 
+    gap: 1rem;
+    padding: 1rem;
+  }
+}
+
+
+@media (max-width: 1000px) {
   .config-section {
     grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
   
   .subject-card {
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto auto;
+    grid-template-rows: auto auto auto;
+    gap: 1rem;
+    align-items: center;
+  }
+  
+  .field-wrapper:nth-child(1) {
+    grid-column: span 2;
+  }
+  
+  .field-wrapper:nth-child(2) {
+    grid-column: span 1;
+  }
+  .field-wrapper:nth-child(3) {
+    grid-column: span 1;
+  }
+
+  .field-wrapper:nth-child(4) {
+    grid-column: span 2;
+  }
+  
+}
+
+@media (max-width: 650px) {
+  .timetable-header h1 {
+    font-size: 2rem;
+  }
+  
+  .subjects-section, .config-section {
+    padding: 1.5rem;
+  }
+  
+  .subject-card {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
     gap: 1rem;
   }
   
-  .field-wrapper:first-child {
-    grid-column: span 2;
+  .field-wrapper:nth-child(1),
+  .field-wrapper:nth-child(4) {
+    grid-column: auto;
+  }
+  
+  .schedule-grid {
+    grid-template-columns: 1fr;
   }
 }

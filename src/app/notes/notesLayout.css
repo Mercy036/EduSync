@@ -14,12 +14,13 @@
   --container-max: 1200px;
 }
 
-
-
 html,
 body {
   position: relative;
   min-height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
 }
 
 body::before {
@@ -39,18 +40,14 @@ body::before {
   min-height: 100vh;
   background-color: var(--bg-main);
   align-items: flex-start;
+  position: relative;
 }
 
 .notes-main {
-  flex: 1;
-  /* If the sidebar is part of the flex container, 
-     you might NOT need margin-left. 
-     Try removing it if there is a huge gap. */
-  margin-left: 150px; 
-  padding: 2.5rem 3rem;
+  flex: 1; 
+  width: 100%; 
+  min-width: 0; 
+  padding: 2rem;
   box-sizing: border-box;
+  transition: all 0.25s ease;
 }
-.sidebar.collapsed + .notes-main {
-  margin-left: 76px;
-}
-

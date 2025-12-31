@@ -14,12 +14,12 @@
   --container-max: 1200px;
 }
 
-
-
 html,
 body {
   position: relative;
   min-height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 body::before {
@@ -38,15 +38,17 @@ body::before {
   display: flex;
   min-height: 100vh;
   background-color: var(--bg-main);
+  /* Flexbox automatically handles side-by-side alignment */
+  overflow-x: hidden; 
 }
 
 .carBuddy-main {
-  flex: 1;
-  margin-left: 140px;
+  flex: 1; /* Takes up remaining space */
+  width: 100%;
+  min-width: 0; /* Prevents overflow */
   padding: 2.5rem 3rem;
   box-sizing: border-box;
-}
-.sidebar.collapsed + .carBuddy-main {
-  margin-left: 76px;
+  transition: all 0.3s ease;
 }
 
+/* No manual margins needed for sidebar state anymore */

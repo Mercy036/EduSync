@@ -20,31 +20,21 @@ body {
   color: var(--text-primary);
   margin: 0;
 }
+
 .shelf-layout {
   display: flex;
   min-height: 100vh;
   background-color: var(--bg-main);
+  position: relative;
+  overflow-x: hidden;
 }
 
 .shelf-main {
   flex: 1;
-  margin-left: 150px;
+  width: 100%;
+  min-width: 0;
   padding: 2.5rem 3rem;
   box-sizing: border-box;
-}
-.sidebar.collapsed + .shelf-main {
-  margin-left: 76px;
-}
-
-.shelf-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
-}
-
-.shelf-header h2 {
-  font-size: 1.1rem;
-  font-weight: 600;
+  transition: padding 0.25s ease;
 }
 

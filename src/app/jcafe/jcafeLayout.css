@@ -14,12 +14,12 @@
   --container-max: 1200px;
 }
 
-
-
 html,
 body {
   position: relative;
   min-height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 body::before {
@@ -36,22 +36,18 @@ body::before {
 
 .jcafe-layout {
   display: flex;
-  min-height: 100vh; /* Changed from 0vh to 100vh */
+  min-height: 100vh;
   background-color: var(--bg-main);
-  /* Ensure alignment is at the top */
-  align-items: flex-start; 
+  align-items: flex-start;
+  position: relative;
+  overflow-x: hidden; 
 }
 
 .jcafe-main {
-  flex: 1;
-  /* If the sidebar is part of the flex container, 
-     you might NOT need margin-left. 
-     Try removing it if there is a huge gap. */
-  margin-left: 120px; 
-  padding: 2.5rem 3rem;
+  flex: 1; 
+  width: 100%;
+  min-width: 0;
+  padding: 0; 
   box-sizing: border-box;
+  transition: all 0.3s ease;
 }
-.sidebar.collapsed + .jcafe-main {
-  margin-left: 0;
-}
-

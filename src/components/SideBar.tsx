@@ -66,11 +66,13 @@ export default function SideBar() {
                     </ul>
                 </nav>
                 
-                <ProfileButton 
-                    collapsed={collapsed} 
-                    onClick={() => setIsProfileOpen(true)} 
-                />
-                <SignOutButton collapsed={collapsed} />
+                <div className="sidebar-utils">
+                    <ProfileButton 
+                        collapsed={collapsed} 
+                        onClick={() => setIsProfileOpen(true)} 
+                    />
+                    <SignOutButton collapsed={collapsed} />
+                </div>
 
                 <div className="sidebar-footer">
                     <button onClick={toggleSidebar}>

@@ -13,7 +13,7 @@ export default function ProfileButton({ collapsed = false, onClick }: ProfileBut
     <button
       onClick={onClick} // Use the prop
       className={`signout-btn ${collapsed ? "collapsed" : ""}`} 
-      style={{ color: "#2b2b2b", marginBottom: "4px" }}
+      style={{ color: "#2b2b2b", marginBottom: "-5px", marginLeft: "-5px" }}
       title={collapsed ? "My Profile" : ""}
     >
       <UserCircle size={18} className="signout-icon" style={{ color: "#2b2b2b" }} />

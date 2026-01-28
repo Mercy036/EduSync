@@ -88,7 +88,7 @@ text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=20
 
 def get_embeddings_batch(texts: List[str]):
     res = gemini_client.models.embed_content(
-        model="text-embedding-001",
+        model="text-embedding-004",
         contents=texts
     )
     return [e.values for e in res.embeddings]

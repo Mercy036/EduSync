@@ -36,7 +36,7 @@ GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 QDRANT_API_KEY = os.getenv("qdrantclientapikey")
 
-gemini_client = genai.Client(api_key=GOOGLE_API_KEY)
+gemini_client = genai.Client(api_key=GOOGLE_API_KEY, api_version="v1")
 COLLECTION_NAME = "rag_documents"
 
 qdrant_client = QdrantClient(

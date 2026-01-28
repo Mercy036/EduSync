@@ -88,7 +88,7 @@ text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=20
 
 def get_embeddings_batch(texts: List[str]):
     res = gemini_client.models.embed_content(
-        model="text-embedding-004",
+        model="models/text-embedding-004",
         contents=texts
     )
     return [e.values for e in res.embeddings]
@@ -154,7 +154,6 @@ async def query(query_input: QueryInput):
 @app.delete("/reset")
 async def reset():
     qdrant_client.delete_collection(COLLECTION_NAME)
-    # Re-initialize via lifespan logic if needed manually
     qdrant_client.create_collection(
         collection_name=COLLECTION_NAME,
         vectors_config=VectorParams(size=768, distance=Distance.COSINE),
